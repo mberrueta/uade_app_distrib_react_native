@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Navigation from '../components/Navigation';
 
 import {
   Image,
@@ -22,7 +22,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-          
+        <Navigation/>
       </View>
     );
   }
