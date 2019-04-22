@@ -1,5 +1,7 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
+import BarSearch from '../components/BarSearch';
+
 
 import {
   Image,
@@ -23,6 +25,7 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Navigation/>
+        <BarSearch/>
       </View>
     );
   }
