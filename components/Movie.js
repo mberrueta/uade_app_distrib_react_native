@@ -13,7 +13,8 @@ class Movie extends Component {
         this.state = {
             // imdbID: props.imdbID || 'tt3165576'
             imdbID: props.imdbID || 'tt3165576',
-       
+            movie: {}
+
         }
 
         const endpoint = `${url}${apikey}&i=${this.state.imdbID}`;
