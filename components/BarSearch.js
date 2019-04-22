@@ -68,10 +68,10 @@ class BarSearch extends Component {
                         size={10}
                         />
                     <Button
-                        icon={<Icon name='code' color='#ffffff' />}
+                        icon={<Icon name='description' color='#ffffff' />}
                         backgroundColor='#03A9F4'
                         buttonStyle={{borderRadius: 0, marginLeft: 10, marginRight: 10, marginBottom: 0}}
-                        title='VIEW NOW'
+                        title='Ver Detalles'
                         onClick={((e) => this.viewMovie(e,movie))} />
                     </Card>
                 movieRows.push(movieRow);
