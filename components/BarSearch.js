@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Image, ScrollView } from 'react-native';
 import { SearchBar, Card, ListItem, Button, Icon, AirbnbRating, Rating } from 'react-native-elements'
+import Movie from './Movie';
 
 const url = "http://www.omdbapi.com/?&apikey=";
 const apikey = "d0b64143";
@@ -42,7 +43,7 @@ class BarSearch extends Component {
             }
         ).then(responseData => {
             const results = responseData.Search;
-            //console.log(results);
+            console.log(results);
 
             var movieRows = [];
 
@@ -50,9 +51,15 @@ class BarSearch extends Component {
                 const movieRow =
                     <Card key={movie.imdbID}
                         title={movie.Title}
-                        image={movie.Poster}>
+                        image = {{ uri: movie.Poster }}
+                        imageStyle= {{width:300, height:444, marginLeft:40}}>
                     <Text >
-                        {movie.Plot}
+                        {/* <Image
+                            style = {{width:300, height:444}}
+                            resizeMode="cover"
+                            source={{ uri: movie.Poster }}
+                        /> */}
+                        
                     </Text>
                     <AirbnbRating
                         count={5}
