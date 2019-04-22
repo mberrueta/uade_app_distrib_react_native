@@ -3,6 +3,7 @@ import { Text, View, Image, ScrollView } from 'react-native';
 import { SearchBar, Card, ListItem, Button, Icon, AirbnbRating, Rating } from 'react-native-elements'
 import Movie from './Movie';
 
+
 const url = "http://www.omdbapi.com/?&apikey=";
 const apikey = "d0b64143";
 
@@ -32,6 +33,15 @@ class BarSearch extends Component {
         this.setState({ name: search });
         //alert(this.state.name);
       };
+
+
+      viewMovie(e,data){
+        e.preventDefault();
+
+        this.props.navigation.navigate('MovieDetails');
+
+    }
+
 
       ejecutarBusqueda(){
         //alert(this.state.name);
@@ -72,7 +82,7 @@ class BarSearch extends Component {
                         backgroundColor='#03A9F4'
                         buttonStyle={{borderRadius: 0, marginLeft: 10, marginRight: 10, marginBottom: 0}}
                         title='Ver Detalles'
-                        onClick={((e) => this.viewMovie(e,movie))} />
+                        onPress={((e) => this.viewMovie(e,movie))} />
                     </Card>
                 movieRows.push(movieRow);
 

@@ -12,7 +12,7 @@ class Movie extends Component {
         super(props);
         this.state = {
             // imdbID: props.imdbID || 'tt3165576'
-            imdbID: props.imdbID || 'tt3165576',
+            imdbID: props.imdbID,
             movie: {}
 
         }
