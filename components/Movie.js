@@ -13,44 +13,19 @@ class Movie extends Component {
         this.state = {
             // imdbID: props.imdbID || 'tt3165576'
             imdbID: props.imdbID || 'tt3165576',
-            movie: {
-                'Actors': 'Matt Patrick, Bob Why, Stephan Todd',
-                'Awards': 'N/A',
-                'BoxOffice': 'N/A',
-                'Country': 'USA',
-                'Director': 'Bob Why',
-                'DVD': 'N/A',
-                'Genre': 'Animation, Short, Action',
-                'imdbID': 'tt3165576',
-                'imdbRating': 'N/A',
-                'imdbVotes': 'N/A',
-                'Language': 'English',
-                'Metascore': 'N/A',
-                'Plot': 'Halo Advengers is the story of Halo before 4 in a series of video short films. The flood has returned.... well found. And now its up to a select few to take care of the job of policing up ...',
-                'Poster': 'N/A',
-                'Production': 'N/A',
-                'Rated': 'N/A',
-                'Released': '21 Aug 2013',
-                'Response': 'True',
-                'Runtime': 'N/A',
-                'Title': 'Halo Advengers',
-                'Type': 'movie',
-                'Website': 'N/A',
-                'Writer': 'Bob Why',
-                'Year': '2013',
-              }
+       
         }
 
-        // const endpoint = `${url}${apikey}&i=${this.state.imdbID}`;
+        const endpoint = `${url}${apikey}&i=${this.state.imdbID}`;
 
-        // fetch(endpoint).then(
-        //     (response) => {
-        //         return response.json();
-        //     }
-        // ).then(responseData => {
-        //     this.setState({movie: responseData})
-        //     console.log(responseData);
-        // });
+        fetch(endpoint).then(
+            (response) => {
+                return response.json();
+            }
+        ).then(responseData => {
+            this.setState({movie: responseData})
+            console.log(responseData);
+        });
     }
 
     render(){
