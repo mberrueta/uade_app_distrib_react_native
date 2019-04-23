@@ -1,7 +1,7 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
 import MoviesSearch from '../components/MoviesSearch';
-import KeyboardAvoidingView from 'react-native';
+import Login from './Login'
 
 
 import {
@@ -28,6 +28,7 @@ export default class MoviesScreen extends React.Component {
         <View style={styles.container}>
           <Navigation/>
           <MoviesSearch navegador={this.props.navigation}/> 
+          {/* <Login navegador={this.props.navigation}/> */}
         </View>
     );
   }
