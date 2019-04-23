@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Image, ScrollView } from 'react-native';
 import { SearchBar, Card, ListItem, Button, Icon, AirbnbRating, Rating } from 'react-native-elements'
-import Movie from '../screens/Movie';
+import Movie from '../screens/MovieDetailScreen';
 
 
 const url = "http://www.omdbapi.com/?&apikey=";
