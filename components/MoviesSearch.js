@@ -41,7 +41,7 @@ class MoviesSearch extends Component {
       viewMovie(movie){
         //e.preventDefault();
         //console.log("props",this.props);
-        this.props.navegador.navigate('MovieDetails', {movie: movie});
+        this.props.navegador.navigate('MovieDetails', {movie: movie, navegador: this.props.navegador});
 
     }
 

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView} from 'react-native';
+import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import { Card, ListItem, Button, Rating } from 'react-native-elements';
 import {Textarea} from 'native-base';
 
 // TODO: use global config
 const url = 'http://www.omdbapi.com/?&apikey=';
 const apikey = 'd0b64143';
-
 
 const list = [
     {
@@ -26,7 +25,11 @@ class Movie extends Component {
         super(props);
         this.state = {
             // imdbID: props.imdbID || 'tt3165576'
-            movie: props.navigation.getParam('movie')
+            movie: props.navigation.getParam('movie'),
+            comments: null,
+            commentText: "",
+            commentToSave:"",
+            navegador: props.navigation.getParam('navegador')
 
         }
 
@@ -40,17 +43,110 @@ class Movie extends Component {
             }
         ).then(responseData => {
             this.setState({movie: responseData})
-            console.log("Data:",responseData);
+            //console.log("Data:",responseData);
         });
+
+
+        let data = {
+            imdbID: this.state.movie.imdbID
+        }
+
+        const endpoint_back_movies = `https://uade-app-distrib-node-back.herokuapp.com/movie-comments/${this.state.movie.imdbID}`;
+        //console.log("endpoint:", endpoint);
+        fetch(endpoint_back_movies,
+            {
+                method: 'GET',
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).then(
+            (response) => {
+                return response.json();
+            }
+        ).then(responseDataBack => {
+            console.log("response",responseDataBack.comments);
+            const results = responseDataBack.comments;
+            console.log("results",results);
+            var movieComments = [];
+
+            results.forEach( (movie)=> {
+                const movieComment =
+                <ListItem
+                    key={movie.id}
+                    leftAvatar={{ source: { require: ("../assets/images/face.png") } }}
+                    title={movie.user_id}
+                    subtitle={movie.comment}
+                />
+                    
+                movieComments.push(movieComment);
+
+            })
+
+
+            this.setState({comments: movieComments});
+            //console.log("Comments:",responseDataBack);
+
+
+        });
+
+
+        console.log("comments state", this.state.comments)
+
+        this.saveComment = this.saveComment.bind(this);
+        this.updateCommentText = this.updateCommentText.bind(this);
+
+
+    }
+
+
+    updateCommentText = commentText => {
+        //alert(search);
+        this.setState({ commentToSave: commentText });
+        //alert(this.state.name);
+    };
+
+    saveComment(){
+        //alert(this.state.commentToSave);
+
+        let data = {
+            imdb_id: this.state.movie.imdbID,
+            user_id: "2026e850-65d2-11e9-a0e7-33b22bab8f80",
+            comment: this.state.commentToSave,
+            stars: 3
+        }
+
+        const endpoint_back_movies_post = "https://uade-app-distrib-node-back.herokuapp.com/movie-comments/";
+        //console.log("endpoint:", endpoint);
+        fetch(endpoint_back_movies_post,
+            {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).then(
+            (response) => {
+                return response.json();
+            }
+        ).then(responseDataBack => {
+            console.log("response POST",responseDataBack);
+            //console.log("Comments:",responseDataBack);
+            alert('El comentario se ha dado de alta correctamente.');
+            this.state.navegador.navigate('MovieDetails', {movie: this.state.movie});
+        });
+
     }
 
     render(){
         //let image_uri = this.state.movie.Poster != 'N/A' ? {uri: this.state.movie.Poster} : require('.././assets/images/no_image.jpg');
         let image_uri = this.state.movie.Poster;
         let rating = this.state.movie.imdbRating / 2;
+        const { commentText } = this.state.commentText;
         //console.log(image_uri);
         return(
-            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled key={this.state.uniqueValue}>
             <ScrollView>
                 { <View style={styles.titleView}>
                     <Text style={styles.titleText}>
@@ -93,23 +189,19 @@ class Movie extends Component {
                     title="Comentarios:">
 
                     <View>
-                        {
-                            list.map((l, i) => (
-                            <ListItem
-                                key={i}
-                                leftAvatar={{ source: { require: ("../assets/images/face.png") } }}
-                                title={l.name}
-                                subtitle={l.subtitle}
-                            />
-                            ))
-                        }
+                        {this.state.comments}
                     </View>
 
                     <View>
-                        <Textarea rowSpan={5} bordered placeholder="Agregar Comentario..." />
+                        <Textarea rowSpan={5} bordered 
+                            placeholder="Agregar Comentario..." 
+                            onChangeText={this.updateCommentText}
+                            value={commentText}    
+                        />
                         <Button
                             backgroundColor='#03A9F4'
                             buttonStyle={{borderRadius: 0, marginLeft: 10, marginRight: 10, marginBottom: 0}}
+                            onPress={this.saveComment}
                             title='Agregar'/>
                     </View>
 
