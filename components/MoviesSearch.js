@@ -56,7 +56,7 @@ class MoviesSearch extends Component {
             }
         ).then(responseData => {
             const results = responseData.Search;
-            //console.log(results);
+            console.log("datos",results);
 
             var movieRows = [];
 
@@ -74,12 +74,6 @@ class MoviesSearch extends Component {
                         /> */}
                         
                     </Text>
-                    <AirbnbRating
-                        count={5}
-                        reviews={["Terrible","Bad","Good","Very Good","Excellent"]}
-                        defaultRating={4}
-                        size={10}
-                        />
                     <Button
                         icon={<Icon name='description' color='#ffffff' />}
                         backgroundColor='#03A9F4'

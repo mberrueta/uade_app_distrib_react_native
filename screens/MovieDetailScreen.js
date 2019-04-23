@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Header, ScrollView} from 'react-native';
-import { Card, ListItem, Input, Button } from 'react-native-elements';
+import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView} from 'react-native';
+import { Card, ListItem, Button, Rating } from 'react-native-elements';
 import {Textarea} from 'native-base';
 
 // TODO: use global config
@@ -10,13 +10,11 @@ const apikey = 'd0b64143';
 
 const list = [
     {
-      name: 'Amy Farha',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-      subtitle: 'Vice President'
+      name: 'Joni Tekel',
+      subtitle: 'Esta pelicula es una reverenda mierda. No la miren'
     },
     {
       name: 'Chris Jackson',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
       subtitle: 'Vice Chairman'
     }
   ]
@@ -49,14 +47,18 @@ class Movie extends Component {
     render(){
         //let image_uri = this.state.movie.Poster != 'N/A' ? {uri: this.state.movie.Poster} : require('.././assets/images/no_image.jpg');
         let image_uri = this.state.movie.Poster;
+        let rating = this.state.movie.imdbRating / 2;
         //console.log(image_uri);
         return(
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
             <ScrollView>
                 { <View style={styles.titleView}>
                     <Text style={styles.titleText}>
                     {'\n'}{'\n'}
-                        {this.state.movie.Title} ({this.state.movie.Year}) {'\n'}{'\n'}
+                        {this.state.movie.Title} ({this.state.movie.Year})  
+                         {'\n'}{'\n'}
                     </Text>
+
                 </View> }
                 {/* <Header
                     centerComponent={{ text: {this.state.movie.Title}, style: { color: '#fff' } }}
@@ -77,9 +79,11 @@ class Movie extends Component {
                         {this.state.movie.Plot}{'\n'}{'\n'}
 
                         Director: {this.state.movie.Director} {'\n'}
-                        Actors: {this.state.movie.Actors}
-
+                        Actors: {this.state.movie.Actors} {'\n'} {'\n'}
                     </Text>
+                    
+                    <Rating showRating fractions="{1}" startingValue={rating} />
+
                 </Card>
 
 
@@ -93,7 +97,7 @@ class Movie extends Component {
                             list.map((l, i) => (
                             <ListItem
                                 key={i}
-                                leftAvatar={{ source: { uri: l.avatar_url } }}
+                                leftAvatar={{ source: { require: ("../assets/images/face.png") } }}
                                 title={l.name}
                                 subtitle={l.subtitle}
                             />
@@ -102,9 +106,6 @@ class Movie extends Component {
                     </View>
 
                     <View>
-                        {/* <Input
-                            placeholder='Agregar comentario...'
-                        /> */}
                         <Textarea rowSpan={5} bordered placeholder="Agregar Comentario..." />
                         <Button
                             backgroundColor='#03A9F4'
@@ -116,11 +117,16 @@ class Movie extends Component {
                 
 
             </ScrollView>
+            </KeyboardAvoidingView>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+      },
     baseText: {
       fontFamily: 'Cochin',
     },

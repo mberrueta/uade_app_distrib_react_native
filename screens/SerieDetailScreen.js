@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Header, ScrollView} from 'react-native';
-import { Card, ListItem, Input, Button } from 'react-native-elements';
+import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView} from 'react-native';
+import { Card, ListItem, Button } from 'react-native-elements';
 import {Textarea} from 'native-base';
 
 // TODO: use global config
@@ -49,6 +49,7 @@ class Serie extends Component {
     render(){
         //let image_uri = this.state.movie.Poster != 'N/A' ? {uri: this.state.movie.Poster} : require('.././assets/images/no_image.jpg');
         let image_uri = this.state.movie.Poster;
+        let rating = this.state.movie.imdbRating / 2;
         //console.log(image_uri);
         return(
             <ScrollView>
@@ -80,6 +81,9 @@ class Serie extends Component {
                         Actors: {this.state.movie.Actors}
 
                     </Text>
+
+                    <Rating showRating fractions="{1}" startingValue={rating} />
+
                 </Card>
 
 
@@ -93,7 +97,7 @@ class Serie extends Component {
                             list.map((l, i) => (
                             <ListItem
                                 key={i}
-                                leftAvatar={{ source: { uri: l.avatar_url } }}
+                                leftAvatar={{ source: { require: ("../assets/images/face.png") } }}
                                 title={l.name}
                                 subtitle={l.subtitle}
                             />
@@ -102,15 +106,13 @@ class Serie extends Component {
                     </View>
 
                     <View>
-                        {/* <Input
-                            placeholder='Agregar comentario...'
-                        /> */}
                         <Textarea rowSpan={5} bordered placeholder="Agregar Comentario..." />
                         <Button
                             backgroundColor='#03A9F4'
                             buttonStyle={{borderRadius: 0, marginLeft: 10, marginRight: 10, marginBottom: 0}}
                             title='Agregar'/>
                     </View>
+
 
                 </Card>
                 
