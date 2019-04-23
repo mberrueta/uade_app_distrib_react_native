@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
+import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView} from 'react-native';
 import { Card, ListItem, Button, Rating } from 'react-native-elements';
 import {Textarea} from 'native-base';
+import { Alert } from 'reactstrap';
 
 // TODO: use global config
 const url = 'http://www.omdbapi.com/?&apikey=';
@@ -133,7 +134,10 @@ class Movie extends Component {
         ).then(responseDataBack => {
             console.log("response POST",responseDataBack);
             //console.log("Comments:",responseDataBack);
-            alert('El comentario se ha dado de alta correctamente.');
+            <Alert color="success">
+                El comentario se ha guardado correctamente.
+            </Alert>
+            //alert('El comentario se ha dado de alta correctamente.');
             this.state.navegador.navigate('MovieDetails', {movie: this.state.movie});
         });
 
