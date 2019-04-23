@@ -28,13 +28,14 @@ class Movie extends Component {
         super(props);
         this.state = {
             // imdbID: props.imdbID || 'tt3165576'
-            imdbID: props.id,
-            movie: {}
+            movie: props.navigation.getParam('movie')
 
         }
 
-        const endpoint = `${url}${apikey}&i=${this.state.imdbID}`;
-        console.log("endpoint:", endpoint);
+        //console.log("Movie",this.state.movie);
+
+        const endpoint = `${url}${apikey}&i=${this.state.movie.imdbID}`;
+        //console.log("endpoint:", endpoint);
         fetch(endpoint).then(
             (response) => {
                 return response.json();

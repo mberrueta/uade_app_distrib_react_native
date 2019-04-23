@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Image, ScrollView } from 'react-native';
 import { SearchBar, Card, ListItem, Button, Icon, AirbnbRating, Rating } from 'react-native-elements'
-import Movie from './Movie';
+import Movie from '../screens/Movie';
 
 
 const url = "http://www.omdbapi.com/?&apikey=";
@@ -10,8 +10,8 @@ const apikey = "d0b64143";
 
 class BarSearch extends Component {
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
           search: "",
           name: "",
@@ -23,10 +23,12 @@ class BarSearch extends Component {
           }
         }
 
+        //console.log("Props",this.props.navegador);
+
         // this.viewMovie = this.viewMovie.bind(this);
         // this.handleClickOpen = this.handleClickOpen.bind(this);
          this.ejecutarBusqueda = this.ejecutarBusqueda.bind(this);
-         this.props.navigation = this.props.navigation.bind(this);
+         //this.props.navigation = this.props.navigation.bind(this);
     }
     
       updateSearch = search => {
@@ -36,10 +38,10 @@ class BarSearch extends Component {
       };
 
 
-      viewMovie(e,data){
-        e.preventDefault();
-
-        this.props.navigation('MovieDetails');
+      viewMovie(movie){
+        //e.preventDefault();
+        //console.log("props",this.props);
+        this.props.navegador.navigate('MovieDetails', {movie: movie});
 
     }
 
@@ -47,14 +49,14 @@ class BarSearch extends Component {
       ejecutarBusqueda(){
         //alert(this.state.name);
         const endpoint = `${url}${apikey}&s=${this.state.name}`;
-        console.log(endpoint)
+        //console.log(endpoint)
         fetch(endpoint).then(
             (response) => {
                 return response.json();
             }
         ).then(responseData => {
             const results = responseData.Search;
-            console.log(results);
+            //console.log(results);
 
             var movieRows = [];
 
@@ -83,7 +85,7 @@ class BarSearch extends Component {
                         backgroundColor='#03A9F4'
                         buttonStyle={{borderRadius: 0, marginLeft: 10, marginRight: 10, marginBottom: 0}}
                         title='Ver Detalles'
-                        onPress={((e) => this.viewMovie(e,movie))} />
+                        onPress={this.viewMovie.bind(this,movie)} />
                     </Card>
                 movieRows.push(movieRow);
 
@@ -93,7 +95,7 @@ class BarSearch extends Component {
 
             this.setState({movies: movieRows});
 
-            console.log("aca llega");
+            //console.log("aca llega");
         })
         .catch(error => alert("Error: No se han encontrado resultados o se han encontrado demasiados resultados."));
 
