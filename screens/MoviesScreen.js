@@ -1,6 +1,6 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
-import BarSearch from '../components/BarSearch';
+import MoviesSearch from '../components/MoviesSearch';
 
 
 import {
@@ -16,7 +16,7 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+export default class MoviesScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -26,7 +26,7 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Navigation/>
-        <BarSearch navegador={this.props.navigation}/> 
+        <MoviesSearch navegador={this.props.navigation}/> 
       </View>
     );
   }

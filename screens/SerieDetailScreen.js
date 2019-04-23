@@ -22,7 +22,7 @@ const list = [
   ]
 
 
-class Movie extends Component {
+class Serie extends Component {
 
     constructor(props){
         super(props);
@@ -34,7 +34,7 @@ class Movie extends Component {
 
         //console.log("Movie",this.state.movie);
 
-        const endpoint = `${url}${apikey}&Type=movie&i=${this.state.movie.imdbID}`;
+        const endpoint = `${url}${apikey}&Type=series&i=${this.state.movie.imdbID}`;
         //console.log("endpoint:", endpoint);
         fetch(endpoint).then(
             (response) => {
@@ -157,4 +157,4 @@ const styles = StyleSheet.create({
     }
   });
 
-  export default Movie;
+  export default Serie;

@@ -8,7 +8,7 @@ const url = "http://www.omdbapi.com/?&apikey=";
 const apikey = "d0b64143";
 
 
-class BarSearch extends Component {
+class MoviesSearch extends Component {
 
     constructor(props){
         super(props);
@@ -48,7 +48,7 @@ class BarSearch extends Component {
 
       ejecutarBusqueda(){
         //alert(this.state.name);
-        const endpoint = `${url}${apikey}&s=${this.state.name}`;
+        const endpoint = `${url}${apikey}&Type=movie&s=${this.state.name}`;
         //console.log(endpoint)
         fetch(endpoint).then(
             (response) => {
@@ -146,4 +146,4 @@ class BarSearch extends Component {
 
 }
 
-export default BarSearch;
+export default MoviesSearch;

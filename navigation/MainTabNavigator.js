@@ -3,18 +3,19 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/MoviesScreen';
-import LinksScreen from '../screens/SeriesScreen';
+import MoviesScreen from '../screens/MoviesScreen';
+import SeriesScreen from '../screens/SeriesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import Movie from '../screens/MovieDetailScreen';
+import Serie from '../screens/SerieDetailScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const MoviesStack = createStackNavigator({
+  Movies: MoviesScreen,
   MovieDetails: Movie
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+MoviesStack.navigationOptions = {
+  tabBarLabel: 'Movies',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -27,12 +28,13 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const SeriesStack = createStackNavigator({
+  Series: SeriesScreen,
+  SeriesDetails: Serie
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+SeriesStack.navigationOptions = {
+  tabBarLabel: 'Series',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -56,7 +58,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  MoviesStack,
+  SeriesStack,
   SettingsStack,
 });
