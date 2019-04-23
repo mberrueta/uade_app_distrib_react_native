@@ -26,6 +26,7 @@ class BarSearch extends Component {
         // this.viewMovie = this.viewMovie.bind(this);
         // this.handleClickOpen = this.handleClickOpen.bind(this);
          this.ejecutarBusqueda = this.ejecutarBusqueda.bind(this);
+         this.props.navigation = this.props.navigation.bind(this);
     }
     
       updateSearch = search => {
@@ -38,7 +39,7 @@ class BarSearch extends Component {
       viewMovie(e,data){
         e.preventDefault();
 
-        this.props.navigation.navigate('MovieDetails');
+        this.props.navigation('MovieDetails');
 
     }
 

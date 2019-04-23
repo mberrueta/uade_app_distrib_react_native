@@ -1,7 +1,7 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
 import BarSearch from '../components/BarSearch';
-
+import Movie from '../components/Movie';
 
 import {
   Image,
@@ -22,10 +22,14 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
+
+    const id = "tt0848228";
+
     return (
       <View style={styles.container}>
-        <Navigation/>
-        <BarSearch/>
+        {/* <Navigation/>
+        <BarSearch/> */}
+        <Movie id={id} />
       </View>
     );
   }
