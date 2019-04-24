@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
+import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView, Alert, Picker} from 'react-native';
 import { Card, ListItem, Button, Rating } from 'react-native-elements';
 import {Textarea} from 'native-base';
 
 // TODO: use global config
 const url = 'http://www.omdbapi.com/?&apikey=';
-const apikey = 'd0b64143';
+const apikey = '5ad6e7ca';
 
 const list = [
     {
@@ -30,7 +30,8 @@ class Movie extends Component {
             commentText: "",
             commentToSave:"",
             navegador: props.navigation.getParam('navegador'),
-            alertMsg:""
+            alertMsg:"",
+            puntuacion: 5
 
         }
 
@@ -81,9 +82,16 @@ class Movie extends Component {
                 const movieComment =
                 <ListItem
                     key={movie.id}
-                    leftAvatar={{ source: { require: ("../assets/images/face.png") } }}
-                    title={movie.user_id}
-                    subtitle={movie.comment}
+                    leftAvatar={{ source: require ("../assets/images/face.png") }}
+                    title={movie.user.name}
+                    //subtitle={movie.comment}
+                    subtitle={
+                        <View>
+                            <Text style={{fontStyle: 'italic'}}>{movie.comment}</Text>
+                        </View>
+                    }
+                    rightAvatar = {<Rating startingValue={movie.stars} imageSize={12} readonly/>}
+                    //badge={<Rating startingValue={movie.stars} size={10} readonly/>}
                 />
                     
                 movieComments.push(movieComment);
@@ -108,15 +116,23 @@ class Movie extends Component {
         //alert(this.state.name);
     };
 
+    updatePuntuacion = puntuacion => {
+        //alert(search);
+        this.setState({ puntuacion: puntuacion });
+        //alert(this.state.name);
+    };
+
     saveComment(){
         //alert(this.state.commentToSave);
 
         let data = {
             imdb_id: this.state.movie.imdbID,
-            user_id: "2026e850-65d2-11e9-a0e7-33b22bab8f80",
+            user_id: "276ed710-6690-11e9-add2-fd9f517272a1",
             comment: this.state.commentToSave,
-            stars: 3
+            stars: this.state.puntuacion
         }
+
+        console.log("newcomment", data);
 
         const endpoint_back_movies_post = "https://uade-app-distrib-node-back.herokuapp.com/movie-comments/";
         //console.log("endpoint:", endpoint);
@@ -192,7 +208,7 @@ class Movie extends Component {
                         Actors: {this.state.movie.Actors} {'\n'} {'\n'}
                     </Text>
                     
-                    <Rating showRating fractions="{1}" startingValue={rating} />
+                    <Rating showRating fractions="{1}" startingValue={rating} readonly/>
 
                 </Card>
 
@@ -210,8 +226,24 @@ class Movie extends Component {
                         <Textarea rowSpan={5} bordered 
                             placeholder="Agregar Comentario..." 
                             onChangeText={this.updateCommentText}
-                            value={commentText}    
+                            value={commentText}
+                            style={{marginBottom:10}}    
                         />
+                        <View style={{width:300}}>
+                            <Text>
+                                Puntuacion:
+                            </Text>
+                            <Picker
+                                selectedValue={this.state.puntuacion}
+                                style={{height: 50, width: 100}}
+                                onValueChange={this.updatePuntuacion}>
+                                <Picker.Item label="5" value="5" />
+                                <Picker.Item label="4" value="4" />
+                                <Picker.Item label="3" value="3" />
+                                <Picker.Item label="2" value="2" />
+                                <Picker.Item label="1" value="1" />
+                            </Picker>
+                        </View>
                         <Button
                             backgroundColor='#03A9F4'
                             buttonStyle={{borderRadius: 0, marginLeft: 10, marginRight: 10, marginBottom: 0}}
