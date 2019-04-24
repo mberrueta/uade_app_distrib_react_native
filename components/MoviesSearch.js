@@ -5,7 +5,7 @@ import Movie from '../screens/MovieDetailScreen';
 
 
 const url = "http://www.omdbapi.com/?&apikey=";
-const apikey = "d0b64143";
+const apikey = "5ad6e7ca";
 
 
 class MoviesSearch extends Component {
