@@ -27,6 +27,7 @@ export default class MoviesScreen extends React.Component {
     return (
         <View style={styles.container}>
           <Navigation/>
+          <Text>Peliculas</Text>
           <MoviesSearch navegador={this.props.navigation}/> 
         </View>
     );
