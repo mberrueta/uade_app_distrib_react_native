@@ -101,45 +101,45 @@ export default class Login extends Component {
 
     render() {
 
-        if(this.state.newUserForm){
+        // if(this.state.newUserForm){
             
-            return (
-                <View>
-                    <Navigation/>
-                    <Card>
-                        <Text 
-                            style={{fontSize: 27}}>
-                            Nuevo Usuario
-                        </Text>
-                        <TextInput 
-                            style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            placeholder='Email' 
-                            onChangeText = {this.updateNewUser}
-                        />
-                        <TextInput 
-                            style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            placeholder='Nombre' 
-                            onChangeText = {this.updateNewName}
-                        />
-                        <TextInput 
-                            style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            placeholder='Password' 
-                            onChangeText = {this.updateNewPw}
-                        />
-                        <View style={{margin:7}} />
-                        <Button 
-                            //onPress={this.newUser.bind(this)}
-                            title="Submit"
-                            style={{padding:50, height:50}}
-                        />
-                    </Card>
-                    <View style={{marginTop:50, marginLeft:120}} alignContent='center'>
-                        <AwesomeButton height={30} onPress={this.updateNewUserForm()}>Volver</AwesomeButton>
-                    </View>
-                </View>
-            )
-        }
-        else{
+        //     return (
+        //         <View>
+        //             <Navigation/>
+        //             <Card>
+        //                 <Text 
+        //                     style={{fontSize: 27}}>
+        //                     Nuevo Usuario
+        //                 </Text>
+        //                 <TextInput 
+        //                     style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
+        //                     placeholder='Email' 
+        //                     onChangeText = {this.updateNewUser}
+        //                 />
+        //                 <TextInput 
+        //                     style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
+        //                     placeholder='Nombre' 
+        //                     onChangeText = {this.updateNewName}
+        //                 />
+        //                 <TextInput 
+        //                     style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
+        //                     placeholder='Password' 
+        //                     onChangeText = {this.updateNewPw}
+        //                 />
+        //                 <View style={{margin:7}} />
+        //                 <Button 
+        //                     //onPress={this.newUser.bind(this)}
+        //                     title="Submit"
+        //                     style={{padding:50, height:50}}
+        //                 />
+        //             </Card>
+        //             <View style={{marginTop:50, marginLeft:120}} alignContent='center'>
+        //                 <AwesomeButton height={30} onPress={this.updateNewUserForm()}>Volver</AwesomeButton>
+        //             </View>
+        //         </View>
+        //     )
+        // }
+        // else{
 
             return (
                 <View>
@@ -172,7 +172,7 @@ export default class Login extends Component {
                 </View>
             )
 
-        }
+        // }
         
     }
 }

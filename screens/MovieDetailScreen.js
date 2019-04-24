@@ -212,9 +212,6 @@ class Movie extends Component {
 
                 </Card>
 
-
-                
-
                 <Card 
                     title="Comentarios:">
 
