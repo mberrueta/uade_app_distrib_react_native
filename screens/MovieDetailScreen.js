@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView} from 'react-native';
+import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import { Card, ListItem, Button, Rating } from 'react-native-elements';
 import {Textarea} from 'native-base';
-import { Alert } from 'reactstrap';
 
 // TODO: use global config
 const url = 'http://www.omdbapi.com/?&apikey=';
@@ -30,7 +29,8 @@ class Movie extends Component {
             comments: null,
             commentText: "",
             commentToSave:"",
-            navegador: props.navigation.getParam('navegador')
+            navegador: props.navigation.getParam('navegador'),
+            alertMsg:""
 
         }
 
@@ -48,6 +48,15 @@ class Movie extends Component {
         });
 
 
+        
+        this.saveComment = this.saveComment.bind(this);
+        this.updateCommentText = this.updateCommentText.bind(this);
+
+
+    }
+
+
+    componentDidMount(){
         let data = {
             imdbID: this.state.movie.imdbID
         }
@@ -85,7 +94,7 @@ class Movie extends Component {
             })
 
 
-            this.setState({comments: movieComments});
+            this.setState({comments: movieComments,commentText:""});
             //console.log("Comments:",responseDataBack);
 
 
@@ -94,12 +103,7 @@ class Movie extends Component {
 
         console.log("comments state", this.state.comments)
 
-        this.saveComment = this.saveComment.bind(this);
-        this.updateCommentText = this.updateCommentText.bind(this);
-
-
     }
-
 
     updateCommentText = commentText => {
         //alert(search);
@@ -134,11 +138,20 @@ class Movie extends Component {
         ).then(responseDataBack => {
             console.log("response POST",responseDataBack);
             //console.log("Comments:",responseDataBack);
-            <Alert color="success">
-                El comentario se ha guardado correctamente.
-            </Alert>
+            const alertMsg = Alert.alert(
+                'Gracias!',
+                'Su comentario se ha guardado exitosamente.',
+                [
+                  {text: 'OK', onPress: () => this.componentDidMount()},
+                ],
+                {cancelable: true},
+              );
             //alert('El comentario se ha dado de alta correctamente.');
-            this.state.navegador.navigate('MovieDetails', {movie: this.state.movie});
+            this.setState({
+                alertMsg: alertMsg,
+                commentText: ""
+            });
+            
         });
 
     }
@@ -207,8 +220,12 @@ class Movie extends Component {
                             buttonStyle={{borderRadius: 0, marginLeft: 10, marginRight: 10, marginBottom: 0}}
                             onPress={this.saveComment}
                             title='Agregar'/>
+                            
                     </View>
 
+                    <Text>
+                        {this.state.alertMsg}
+                    </Text>
                 </Card>
                 
 
