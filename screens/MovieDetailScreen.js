@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView, Alert, Picker} from 'react-native';
 import { Card, ListItem, Button, Rating } from 'react-native-elements';
 import {Textarea} from 'native-base';
+import Comment from '../components/Comment';
 
 // TODO: use global config
 const url = 'http://www.omdbapi.com/?&apikey=';
@@ -78,23 +79,13 @@ class Movie extends Component {
             console.log("results",results);
             var movieComments = [];
 
-            results.forEach( (movie)=> {
+            results.forEach( (movie) => {
                 const movieComment =
-                <ListItem
-                    key={movie.id}
-                    leftAvatar={{ source: require ("../assets/images/face.png") }}
-                    title={movie.user.name}
-                    //subtitle={movie.comment}
-                    subtitle={
-                        <View>
-                            <Text style={{fontStyle: 'italic'}}>{movie.comment}</Text>
-                        </View>
-                    }
-                    rightAvatar = {<Rating startingValue={movie.stars} imageSize={12} readonly/>}
-                    //badge={<Rating startingValue={movie.stars} size={10} readonly/>}
-                />
+                <Comment movie={movie}/>
                     
                 movieComments.push(movieComment);
+
+                
 
             })
 
