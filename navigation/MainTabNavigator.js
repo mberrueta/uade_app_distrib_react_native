@@ -9,6 +9,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 import Movie from '../screens/MovieDetailScreen';
 import Serie from '../screens/SerieDetailScreen';
 
+
 const MoviesStack = createStackNavigator({
   Movies: MoviesScreen,
   MovieDetails: Movie
@@ -60,5 +61,5 @@ SettingsStack.navigationOptions = {
 export default createBottomTabNavigator({
   MoviesStack,
   SeriesStack,
-  SettingsStack,
+  SettingsStack
 });

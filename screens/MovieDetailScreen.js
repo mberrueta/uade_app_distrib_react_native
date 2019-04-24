@@ -57,9 +57,6 @@ class Movie extends Component {
 
 
     componentDidMount(){
-        let data = {
-            imdbID: this.state.movie.imdbID
-        }
 
         const endpoint_back_movies = `https://uade-app-distrib-node-back.herokuapp.com/movie-comments/${this.state.movie.imdbID}`;
         //console.log("endpoint:", endpoint);

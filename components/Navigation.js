@@ -12,6 +12,7 @@ class Navigation extends Component {
         return(
             <View >
                 <Header
+                leftComponent={{ icon: 'tv', color: '#fff' }}
                 centerComponent={{ text: 'APD Movies', style: { color: '#fff' } }}
                 rightComponent={{ icon: 'home', color: '#fff' }}
                 />
