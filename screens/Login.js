@@ -10,6 +10,7 @@ import {
 import {Card} from 'react-native-elements';
 import Navigation from '../components/Navigation';
 import AwesomeButton from "react-native-really-awesome-button";
+import { AsyncStorage } from 'AsyncStorage';
 
 export default class Login extends Component {
     
@@ -86,6 +87,14 @@ export default class Login extends Component {
             if(responseOk){
                 //alert("ok");
                 //this.setState({response: responseOk});
+
+                storeData = async () => {
+                    try {
+                      await AsyncStorage.setItem('@user_data', responseOk)
+                    } catch (e) {
+                      // saving error
+                    }
+                  }
 
                 this.props.navigation.navigate('Movies', {response: responseOk});
             }

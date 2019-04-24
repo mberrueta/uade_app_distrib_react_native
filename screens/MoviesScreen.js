@@ -22,8 +22,22 @@ export default class MoviesScreen extends React.Component {
     header: null,
   };
 
-  render() {
+  getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@user_data')
+      if(value !== null) {
+        // value previously stored
+        console.log(value);
+      }
+    } catch(e) {
+      // error reading value
+    }
+  }
 
+    
+
+  render() {
+    console.log(getData);
     return (
         <View style={styles.container}>
           <Navigation/>
