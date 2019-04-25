@@ -36,6 +36,7 @@ export default class MoviesScreen extends React.Component {
       console.log("getData value before",value);
       if(value !== null) {      
         console.log("getData value after",value);
+        this.setState({user: value});
       }
   }
 
@@ -47,7 +48,7 @@ export default class MoviesScreen extends React.Component {
     return (
         <View style={styles.container}>
           <Navigation/>
-          <Text h4>Peliculas</Text>
+          {/*<Text h4>Peliculas</Text> */}
           <MoviesSearch navegador={this.props.navigation} user={this.state.user}/> 
         </View>
     );

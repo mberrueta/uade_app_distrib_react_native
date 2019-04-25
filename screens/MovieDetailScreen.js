@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView, Alert, Picker} from 'react-native';
+import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView, Alert, Picker, AsyncStorage} from 'react-native';
 import { Card, ListItem, Button, Rating } from 'react-native-elements';
 import {Textarea} from 'native-base';
 import Comment from '../components/Comment';
+
 
 // TODO: use global config
 const url = 'http://www.omdbapi.com/?&apikey=';
@@ -32,7 +33,8 @@ class Movie extends Component {
             commentToSave:"",
             navegador: props.navigation.getParam('navegador'),
             alertMsg:"",
-            puntuacion: 5
+            puntuacion: 5,
+            user: ""
 
         }
 
@@ -91,6 +93,7 @@ class Movie extends Component {
 
 
             this.setState({comments: movieComments,commentText:""});
+            this.getData();
             //console.log("Comments:",responseDataBack);
 
 
@@ -100,6 +103,17 @@ class Movie extends Component {
         console.log("comments state", this.state.comments)
 
     }
+      
+    
+      getData = async () => {
+    
+          const value = await AsyncStorage.getItem('@user');
+          console.log("DETAIL getData value before",value);
+          if(value !== null) {      
+            console.log("DETAIL getData value after",value);
+            this.setState({user: value})
+          }
+      }
 
     updateCommentText = commentText => {
         //alert(search);

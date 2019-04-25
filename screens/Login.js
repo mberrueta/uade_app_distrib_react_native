@@ -84,7 +84,7 @@ export default class Login extends Component {
             }
         ).then(responseOk => {
             if(responseOk){
-                this.storeData(responseOk.user_id);
+                this.storeData(responseOk.token);
                 this.props.navigation.navigate('Movies', {response: responseOk});
                 console.log("responseOK",responseOk);              
             }
