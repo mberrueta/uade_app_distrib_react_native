@@ -133,18 +133,29 @@ class Movie extends Component {
             }
         ).then(
             (response) => {
-                return response.json();
+                if(response.status == 200){
+                    return response.json();
+                }
+                else{
+                    return null;
+                }
             }
         ).then(responseDataBack => {
+            var txt_title = 'Error!'
+            var txt = 'something went wrong'
+            if(responseDataBack){
+                txt_title = 'Thanks!'
+                txt = 'Your comment has been saved successfully.'
+            }
+
             const alertMsg = Alert.alert(
-                'Thanks!',
-                'Your comment has been saved succefuly.',
+                txt_title,
+                txt,
                 [
                   {text: 'OK', onPress: () => this.componentDidMount()},
                 ],
                 {cancel: true},
               );
-            //alert('El comentario se ha dado de alta correctamente.');
             this.setState({
                 alertMsg: alertMsg,
                 commentText: ""
