@@ -55,7 +55,7 @@ class MoviesSearch extends Component {
                 <View style={{margin:5, marginBottom: 10}}>
                     <CardMedia
                         files={file}
-                        style={{ height: 400 }}
+                        style={{ height: 200}}
                         title={title}
                         showTitle={true}
                         titleStyle={{ fontSize: 20, fontWeight: '400', lineHeight: 32, color: '#fafafa' }}

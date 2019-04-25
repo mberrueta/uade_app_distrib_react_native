@@ -34,7 +34,7 @@ class Movie extends Component {
             navegador: props.navigation.getParam('navegador'),
             alertMsg:"",
             puntuacion: 5,
-            user: ""
+            userToken: ""
 
         }
 
@@ -68,7 +68,8 @@ class Movie extends Component {
             {
                 method: 'GET',
                 headers:{
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${this.state.userToken}`
                 }
             }
         ).then(
@@ -111,7 +112,7 @@ class Movie extends Component {
           console.log("DETAIL getData value before",value);
           if(value !== null) {      
             console.log("DETAIL getData value after",value);
-            this.setState({user: value})
+            this.setState({userToken: value})
           }
       }
 
@@ -132,7 +133,7 @@ class Movie extends Component {
 
         let data = {
             imdb_id: this.state.movie.imdbID,
-            user_id: "276ed710-6690-11e9-add2-fd9f517272a1",
+            imdb_title: this.state.movie.Title,
             comment: this.state.commentToSave,
             stars: this.state.puntuacion
         }
@@ -146,7 +147,8 @@ class Movie extends Component {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers:{
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${this.state.userToken}`
                 }
             }
         ).then(
