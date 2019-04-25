@@ -78,7 +78,7 @@ export default class Login extends Component {
                 if(responseOk){
                     storedData = JSON.stringify(responseOk);
                     this.storeData(storedData);
-                    this.props.navigation.navigate('Movies', {response: responseOk});            
+                    this.props.navigation.navigate('Movies', {response: responseOk});                      
                 }
                 else{
                     alert("User or password are invalid.");

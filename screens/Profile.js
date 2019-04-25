@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   AsyncStorage
 } from 'react-native';
+import Comment from '../components/Comment';
 
 export default class Profile extends Component {
 
@@ -15,15 +16,62 @@ export default class Profile extends Component {
         this.state = {
             userId: "",
             userName: "",
-            userEmail: ""
+            userEmail: "",
+            userToken: "",
+            comments: null
         }
+      
+
     }
+
 
     componentDidMount(){
         this.getData();
 
-       // userData = this.state.user.email;
+        //var token;
+        const value = AsyncStorage.getItem('@user');
+        console.log("VALUE", value);
+        //const valueJson = JSON.parse(value);
+       // const token = valueJson.token;
 
+        //console.log("TOKENNN", token);
+
+       const endpoint_back_movies = `https://uade-app-distrib-node-back.herokuapp.com/movie-comments`;
+        console.log("endpoint:", endpoint_back_movies);
+        fetch(endpoint_back_movies,
+            {
+                method: 'GET',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${token}`
+                }
+            }
+        ).then(
+            (response) => {
+                return response.json();
+            }
+        ).then(responseDataBack => {
+            console.log("response",responseDataBack);
+            const results = responseDataBack.comments;
+            console.log("results",results);
+            var movieComments = [];
+
+            results.forEach( (movie) => {
+                const movieComment =
+                <Comment movie={movie}/>
+                    
+                movieComments.push(movieComment);
+                
+
+            })
+
+
+            this.setState({comments: movieComments});
+
+            console.log("Comments:",responseDataBack);
+
+
+       });
         
     }
 
@@ -36,7 +84,8 @@ export default class Profile extends Component {
           this.setState({
               userId: valueJson.user_id, 
               userName: valueJson.user_name,
-              userEmail: valueJson.email
+              userEmail: valueJson.email,
+              userToken: valueJson.token
             })
         }
     }
@@ -52,14 +101,11 @@ export default class Profile extends Component {
               <Text style={styles.name}>{this.state.userName}</Text>
               <Text style={styles.email}>{this.state.userEmail}</Text>
               <Text style={styles.info}>UX Designer / Mobile developer</Text>
-              <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
+              <Text style={styles.description}>
+                {this.state.comments}
+              </Text>
               
-              <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Opcion 1</Text>  
-              </TouchableOpacity>              
-              <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Opcion 2</Text> 
-              </TouchableOpacity>
+              
             </View>
         </View>
       </View>
