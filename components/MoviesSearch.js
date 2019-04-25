@@ -31,7 +31,7 @@ class MoviesSearch extends Component {
 
 
       viewMovie(movie){
-        this.props.navegador.navigate('MovieDetails', {movie: movie, navegador: this.props.navegador});
+        this.props.browser.navigate('MovieDetails', {movie: movie, browser: this.props.browser});
     }
 
 
@@ -43,7 +43,7 @@ class MoviesSearch extends Component {
             }
         ).then(responseData => {
             const results = responseData.Search;
-            console.log("datos",results);
+            console.log("data",results);
 
             var movieRows = [];
 
@@ -101,7 +101,7 @@ class MoviesSearch extends Component {
             
             this.setState({movies: movieRows});
         })
-        .catch(error => alert("Error: No se han encontrado resultados o se han encontrado demasiados resultados."));
+        .catch(error => alert("Error: No results found or too many."));
     }
     
     
@@ -114,7 +114,7 @@ class MoviesSearch extends Component {
                 <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
 
                     <SearchBar
-                        placeholder="Buscar pelicula..."
+                        placeholder="Search Movie..."
                         onChangeText={this.updateSearch}
                         value={search}
                         platform="ios"
@@ -126,7 +126,7 @@ class MoviesSearch extends Component {
                     title="Buscar"
                     onPress={this.search}
                     /> */}
-                    <AwesomeButtonRick type="primary" height={40} width={100} style={{marginTop: 14, marginRight:5}} onPress={this.search}>Buscar</AwesomeButtonRick>
+                    <AwesomeButtonRick type="primary" height={40} width={100} style={{marginTop: 14, marginRight:5}} onPress={this.search}>Search</AwesomeButtonRick>
 
                 </View>
 
