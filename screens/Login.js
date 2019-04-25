@@ -239,7 +239,7 @@ export default class Login extends Component {
                         </Button>
                     </View>
                     <View style={{margin:20}}>
-                        <Button mode="outlined" onPress={() => {this.updateNewUserForm(true)}} color="lightblue">Login</Button>
+                        <Button mode="outlined" onPress={() => {this.updateNewUserForm(true)}} color="lightblue">Register</Button>
                     </View>
                 </View>
             )
