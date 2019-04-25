@@ -28,18 +28,13 @@ class Serie extends Component {
       movie: props.navigation.getParam('movie')
 
     }
-
-    // console.log("Movie",this.state.movie);
-
     const endpoint = `${url}${apikey}&Type=series&i=${this.state.movie.imdbID}`
-    // console.log("endpoint:", endpoint);
     fetch(endpoint).then(
       (response) => {
         return response.json()
       }
     ).then(responseData => {
       this.setState({ movie: responseData })
-      console.log('Data:', responseData)
     })
   }
 

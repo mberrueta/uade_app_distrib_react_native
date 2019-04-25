@@ -43,14 +43,11 @@ class MoviesSearch extends Component {
             }
         ).then(responseData => {
             const results = responseData.Search;
-            console.log("data",results);
-
             var movieRows = [];
 
             results.forEach( (movie)=> {
                 file = [movie.Poster];
                 title = `${movie.Title} (${movie.Year})`;
-                console.log("title", title);
                 const movieRow =
                 <View style={{margin:5, marginBottom: 10}}>
                     <CardMedia
@@ -59,42 +56,12 @@ class MoviesSearch extends Component {
                         title={title}
                         showTitle={true}
                         titleStyle={{ fontSize: 20, fontWeight: '400', lineHeight: 32, color: '#fafafa' }}
-                        //onPress={() => this.onPress()}
-                        //imageIconView={movie.Poster}
                         imageCountStyle={{ fontSize: 20, fontWeight: '500', lineHeight: 28, color: '#fafafa' }}
                         titleTouchable={true}
                         imageTouchable={true}
                         onPress={this.viewMovie.bind(this,movie)}
                     />
                 </View>
-
-                    // <Card style={{margin:10, backgroundColor:'#9966ff'}} onPress={this.viewMovie.bind(this,movie)}>
-                    //     {/* <Card.Content>
-                    //         <Title>{movie.Title} ({movie.Year})</Title>
-                    //         <Paragraph>Card content</Paragraph>
-                    //     </Card.Content> */}
-                    //     <Card.Cover style={{width:100, height:400}} source={{ uri: movie.Poster }} />
-                    // </Card>;
-
-                    // <Card key={movie.imdbID}
-                    //     title={movie.Title}
-                    //     image = {{ uri: movie.Poster }}
-                    //     imageStyle= {{width:300, height:444, marginLeft:40}}>
-                    // <Text >
-                    //     {/* <Image
-                    //         style = {{width:300, height:444}}
-                    //         resizeMode="cover"
-                    //         source={{ uri: movie.Poster }}
-                    //     /> */}
-
-                    // </Text>
-                    // <Button
-                    //     icon={<Icon name='description' color='#ffffff' />}
-                    //     backgroundColor='#03A9F4'
-                    //     buttonStyle={{borderRadius: 0, marginLeft: 10, marginRight: 10, marginBottom: 0}}
-                    //     title='Ver Detalles'
-                    //     onPress={this.viewMovie.bind(this,movie)} />
-                    // </Card>
                 movieRows.push(movieRow);
 
             })
@@ -122,11 +89,6 @@ class MoviesSearch extends Component {
                         containerStyle={{width:300, borderRadius:30, backgroundColor: '#fff'}}
                         inputStyle={{borderRadius:30}}
                     />
-
-                    {/* <Button
-                    title="Buscar"
-                    onPress={this.search}
-                    /> */}
                     <AwesomeButtonRick type="primary" height={40} width={100} style={{marginTop: 14, marginRight:5}} onPress={this.search}>Search</AwesomeButtonRick>
                 </View>
 
@@ -135,8 +97,6 @@ class MoviesSearch extends Component {
                     {this.state.movies}
                     
                 </ScrollView>
-
-
             </View>
 
         )
