@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView } from 'react-native'
+import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import { Card, ListItem, Button } from 'react-native-elements'
 import { Textarea } from 'native-base'
 
