@@ -122,9 +122,9 @@ class Movie extends Component {
         //alert(this.state.name);
     };
 
-    updatePuntuacion = puntuacion => {
+    updateRanking = ranking => {
         //alert(search);
-        this.setState({ puntuacion: puntuacion });
+        this.setState({ ranking: ranking });
         //alert(this.state.name);
     };
 
@@ -135,7 +135,7 @@ class Movie extends Component {
             imdb_id: this.state.movie.imdbID,
             imdb_title: this.state.movie.Title,
             comment: this.state.commentToSave,
-            stars: this.state.puntuacion
+            stars: this.state.ranking
         }
 
         console.log("newcomment", data);
@@ -159,12 +159,12 @@ class Movie extends Component {
             console.log("response POST",responseDataBack);
             //console.log("Comments:",responseDataBack);
             const alertMsg = Alert.alert(
-                'Gracias!',
-                'Su comentario se ha guardado exitosamente.',
+                'Thanks!',
+                'Your comment has been saved succefuly.',
                 [
                   {text: 'OK', onPress: () => this.componentDidMount()},
                 ],
-                {cancelable: true},
+                {cancel: true},
               );
             //alert('El comentario se ha dado de alta correctamente.');
             this.setState({
@@ -220,7 +220,7 @@ class Movie extends Component {
                 </Card>
 
                 <Card 
-                    title="Comentarios:">
+                    title="Comments:">
 
                     <View>
                         {this.state.comments}
@@ -228,19 +228,19 @@ class Movie extends Component {
 
                     <View>
                         <Textarea rowSpan={5} bordered 
-                            placeholder="Agregar Comentario..." 
+                            placeholder="Add Comments..." 
                             onChangeText={this.updateCommentText}
                             value={commentText}
                             style={{marginBottom:10}}    
                         />
                         <View style={{width:300}}>
                             <Text>
-                                Puntuacion:
+                                Ranking:
                             </Text>
                             <Picker
-                                selectedValue={this.state.puntuacion}
+                                selectedValue={this.state.ranking}
                                 style={{height: 50, width: 100}}
-                                onValueChange={this.updatePuntuacion}>
+                                onValueChange={this.updateRanking}>
                                 <Picker.Item label="5" value="5" />
                                 <Picker.Item label="4" value="4" />
                                 <Picker.Item label="3" value="3" />
@@ -252,7 +252,7 @@ class Movie extends Component {
                             backgroundColor='#03A9F4'
                             buttonStyle={{borderRadius: 0, marginLeft: 10, marginRight: 10, marginBottom: 0}}
                             onPress={this.saveComment}
-                            title='Agregar'/>
+                            title='Add'/>
                             
                     </View>
 
