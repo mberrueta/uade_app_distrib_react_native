@@ -90,7 +90,7 @@ class Serie extends Component {
                 
 
                 <Card 
-                    title="Comentarios:">
+                    title="Comments:">
 
                     <View>
                         {
@@ -106,11 +106,11 @@ class Serie extends Component {
                     </View>
 
                     <View>
-                        <Textarea rowSpan={5} bordered placeholder="Agregar Comentario..." />
+                        <Textarea rowSpan={5} bordered placeholder="Add Comments..." />
                         <Button
                             backgroundColor='#03A9F4'
                             buttonStyle={{borderRadius: 0, marginLeft: 10, marginRight: 10, marginBottom: 0}}
-                            title='Agregar'/>
+                            title='Add'/>
                     </View>
 
 

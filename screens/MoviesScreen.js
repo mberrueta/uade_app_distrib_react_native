@@ -49,7 +49,7 @@ export default class MoviesScreen extends React.Component {
         <View style={styles.container}>
           <Navigation/>
           {/*<Text h4>Peliculas</Text> */}
-          <MoviesSearch navegador={this.props.navigation} user={this.state.user}/> 
+          <MoviesSearch browser={this.props.navigation} user={this.state.user}/> 
         </View>
     );
   }

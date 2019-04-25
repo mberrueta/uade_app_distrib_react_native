@@ -9,7 +9,7 @@ export default class SeriesScreen extends MoviesScreen {
     return (
       <View style={styles.container}>
         <Navigation/>
-        <SeriesSearch navegador={this.props.navigation}/>
+        <SeriesSearch browser={this.props.navigation}/>
       </View>
     );
   }
