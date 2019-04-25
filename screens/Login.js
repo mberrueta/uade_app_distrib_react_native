@@ -123,7 +123,7 @@ export default class Login extends Component {
         console.log("newName", this.state.newName);
 
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (reg.test(this.state.user) === true){
+        if (reg.test(this.state.newUser) === true){
             let data = {
                 email: this.state.newUser,
                 pass: this.state.newPw,
