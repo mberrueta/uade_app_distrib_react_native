@@ -32,10 +32,7 @@ export default class Profile extends Component {
     
         const value = await AsyncStorage.getItem('@user');
         const valueJson = JSON.parse(value);
-        //console.log("DETAIL getData value before",value);
-        if(value !== null) {      
-          console.log("DETAIL getData value after",valueJson.email);
-
+        if(value !== null) {
           this.setState({
               userId: valueJson.user_id, 
               userName: valueJson.user_name,

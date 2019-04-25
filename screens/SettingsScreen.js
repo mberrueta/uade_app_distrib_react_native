@@ -17,7 +17,6 @@ const images = [
 
 export default class App extends React.Component {
   renderPage (image, index) {
-    console.log(image)
     return (
       <View key={index}>
         <Image style={{ width: width, height: height }} source={{ uri: image } } />
