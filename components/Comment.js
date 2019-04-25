@@ -32,12 +32,6 @@ class Comment extends Component {
         )
 
     }
-
-
-
-
-
-
 }
 
 
