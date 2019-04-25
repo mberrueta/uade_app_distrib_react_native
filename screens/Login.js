@@ -16,8 +16,8 @@ export default class Login extends Component {
     constructor(props){
         super(props);
         this.state = {
-            user: "felipe@gmail.com",
-            pw: "12345678",
+            user: "",
+            pw: "",
             newUser: "",
             newPw:"",
             newName: "",
@@ -56,44 +56,54 @@ export default class Login extends Component {
         console.log("user", this.state.user);
         console.log("pw", this.state.pw);
 
-        let data = {
-            email: this.state.user,
-            pass: this.state.pw
-        }
-
-        //console.log(JSON.stringify(data));
-
-        const endpoint_auth = `https://uade-app-distrib-node-back.herokuapp.com/auth/signin`;
-        //console.log("endpoint:", endpoint);
-        fetch(endpoint_auth,
-            {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers:{
-                    'Content-Type': 'application/json'
-                }
+        const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (reg.test(this.state.user) === true){
+            
+            let data = {
+                email: this.state.user,
+                pass: this.state.pw
             }
-        ).then(
-            (response) => {
-                if(response.status == 200){
-                    return response.json();
+    
+            //console.log(JSON.stringify(data));
+    
+            const endpoint_auth = `https://uade-app-distrib-node-back.herokuapp.com/auth/signin`;
+            //console.log("endpoint:", endpoint);
+            fetch(endpoint_auth,
+                {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers:{
+                        'Content-Type': 'application/json'
+                    }
+                }
+            ).then(
+                (response) => {
+                    if(response.status == 200){
+                        return response.json();
+                    }
+                    else{
+                        return null;
+                    }
+                }
+            ).then(responseOk => {
+                if(responseOk){
+                    this.storeData(responseOk.token);
+                    this.props.navigation.navigate('Movies', {response: responseOk});
+                    console.log("responseOK",responseOk);              
                 }
                 else{
-                    return null;
+                    alert("failed");
                 }
-            }
-        ).then(responseOk => {
-            if(responseOk){
-                this.storeData(responseOk.token);
-                this.props.navigation.navigate('Movies', {response: responseOk});
-                console.log("responseOK",responseOk);              
-            }
-            else{
-                alert("failed");
-            }
+    
+            })
+            ;
 
-        })
-        ;
+        }
+        else{
+            alert("Formato de email incorrecto.");
+        }
+
+        
 
         
     }
@@ -200,13 +210,15 @@ export default class Login extends Component {
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
                             //placeholder='Username' 
                             onChangeText = {this.updateUser}
+                            value={this.state.user}
                             label="Usuario"
                         />
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
                             //placeholder='Password' 
                             onChangeText = {this.updatePw}
-                            label="Contrasena"
+                            label="Password"
+                            secureTextEntry={true}
                         />
                         <View style={{margin:7}} />
                         <Button 
