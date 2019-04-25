@@ -122,32 +122,38 @@ export default class Login extends Component {
         console.log("newPw", this.state.newPw);
         console.log("newName", this.state.newName);
 
-        let data = {
-            email: this.state.newUser,
-            pass: this.state.newPw,
-            name: this.state.newName
-        }
-
-        //console.log(JSON.stringify(data));
-
-        const endpoint_new_user = `https://uade-app-distrib-node-back.herokuapp.com/users`;
-        //console.log("endpoint:", endpoint);
-        fetch(endpoint_new_user,
-            {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers:{
-                    'Content-Type': 'application/json'
+        const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (reg.test(this.state.user) === true){
+            let data = {
+                email: this.state.newUser,
+                pass: this.state.newPw,
+                name: this.state.newName
+            }
+    
+            //console.log(JSON.stringify(data));
+    
+            const endpoint_new_user = `https://uade-app-distrib-node-back.herokuapp.com/users`;
+            //console.log("endpoint:", endpoint);
+            fetch(endpoint_new_user,
+                {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers:{
+                        'Content-Type': 'application/json'
+                    }
                 }
-            }
-        ).then(
-            (response) => {
-                console.log("response",response);
-                //return response.json();
-            }
-        );
-
-        this.props.navigation.navigate('Movies');
+            ).then(
+                (response) => {
+                    console.log("response",response);
+                    //return response.json();
+                }
+            );
+    
+            this.props.navigation.navigate('Movies');
+        }
+        else{
+            alert("Formato de email incorrecto.")
+        }
     }
 
     render() {
@@ -167,18 +173,21 @@ export default class Login extends Component {
                             //placeholder='Email' 
                             onChangeText = {this.updateNewUser}
                             label="Email"
+                            value={this.state.newUser}
                         />
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
                             //placeholder='Nombre' 
                             onChangeText = {this.updateNewName}
                             label="Nombre"
+                            value={this.state.newName}
                         />
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
                             placeholder='Password' 
                             onChangeText = {this.updateNewPw}
                             label="Contrasena"
+                            secureTextEntry={true}
                         />
                         <View style={{margin:7}} />
                         <Button 
