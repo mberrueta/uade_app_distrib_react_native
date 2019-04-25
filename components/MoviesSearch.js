@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { SearchBar, Button, Icon, Divider} from 'react-native-elements';
 import { Avatar, Card, Title, Paragraph } from 'react-native-paper';
 import CardMedia from 'react-native-card-media';
@@ -128,7 +128,6 @@ class MoviesSearch extends Component {
                     onPress={this.search}
                     /> */}
                     <AwesomeButtonRick type="primary" height={40} width={100} style={{marginTop: 14, marginRight:5}} onPress={this.search}>Search</AwesomeButtonRick>
-
                 </View>
 
                 <ScrollView style={{marginBottom:20}}>

@@ -87,7 +87,9 @@ export default class Login extends Component {
                 }
             ).then(responseOk => {
                 if(responseOk){
-                    this.storeData(responseOk.token);
+                    storedData = JSON.stringify(responseOk);
+                    this.storeData(storedData);
+                    //this.storeData(responseOk.token);
                     this.props.navigation.navigate('Movies', {response: responseOk});
                     console.log("responseOK",responseOk);              
                 }

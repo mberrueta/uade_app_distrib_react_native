@@ -33,9 +33,9 @@ export default class MoviesScreen extends React.Component {
   getData = async () => {
 
       const value = await AsyncStorage.getItem('@user');
-      console.log("getData value before",value);
+      //console.log("getData value before",value);
       if(value !== null) {      
-        console.log("getData value after",value);
+        //console.log("getData value after",value);
         this.setState({user: value});
       }
   }

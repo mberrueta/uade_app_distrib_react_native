@@ -4,19 +4,56 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 
 export default class Profile extends Component {
 
+    constructor(){
+        super();
+        this.state = {
+            userId: "",
+            userName: "",
+            userEmail: ""
+        }
+    }
+
+    componentDidMount(){
+        this.getData();
+
+       // userData = this.state.user.email;
+
+        
+    }
+
+
+    getData = async () => {
+    
+        const value = await AsyncStorage.getItem('@user');
+        const valueJson = JSON.parse(value);
+        //console.log("DETAIL getData value before",value);
+        if(value !== null) {      
+          console.log("DETAIL getData value after",valueJson.email);
+
+          this.setState({
+              userId: valueJson.user_id, 
+              userName: valueJson.user_name,
+              userEmail: valueJson.email
+            })
+        }
+    }
+
   render() {
+    
     return (
       <View style={styles.container}>
           <View style={styles.header}></View>
           <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
           <View style={styles.body}>
             <View style={styles.bodyContent}>
-              <Text style={styles.name}>John Doe</Text>
+              <Text style={styles.name}>{this.state.userName}</Text>
+              <Text style={styles.email}>{this.state.userEmail}</Text>
               <Text style={styles.info}>UX Designer / Mobile developer</Text>
               <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
               
@@ -34,6 +71,9 @@ export default class Profile extends Component {
 }
 
 const styles = StyleSheet.create({
+    container:{
+        flex: 1
+    },
   header:{
     backgroundColor: "#00BFFF",
     height:200,
@@ -71,6 +111,12 @@ const styles = StyleSheet.create({
     fontSize:16,
     color: "#00BFFF",
     marginTop:10
+  },
+  email:{
+    fontSize:16,
+    color: "#00BFFF",
+    marginTop:10,
+    textDecorationLine: 'underline'
   },
   description:{
     fontSize:16,

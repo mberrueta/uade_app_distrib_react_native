@@ -8,6 +8,7 @@ import SeriesScreen from '../screens/SeriesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import Movie from '../screens/MovieDetailScreen';
 import Serie from '../screens/SerieDetailScreen';
+import Profile from '../screens/Profile';
 
 
 const MoviesStack = createStackNavigator({
@@ -58,8 +59,24 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+
+const ProfileStack = createStackNavigator({
+  Profile: Profile,
+});
+
+ProfileStack.navigationOptions = {
+  tabBarLabel: 'Profile',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'md-contact' : 'md-contact'}
+    />
+  ),
+};
+
 export default createBottomTabNavigator({
   MoviesStack,
   SeriesStack,
-  SettingsStack
+  SettingsStack,
+  ProfileStack
 });
