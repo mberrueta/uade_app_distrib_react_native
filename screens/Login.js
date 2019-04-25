@@ -92,7 +92,7 @@ export default class Login extends Component {
                     console.log("responseOK",responseOk);              
                 }
                 else{
-                    alert("failed");
+                    alert("User or password are invalid.");
                 }
     
             })
@@ -124,6 +124,7 @@ export default class Login extends Component {
 
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (reg.test(this.state.newUser) === true){
+            console.log("ENTRO")
             let data = {
                 email: this.state.newUser,
                 pass: this.state.newPw,
@@ -142,14 +143,30 @@ export default class Login extends Component {
                         'Content-Type': 'application/json'
                     }
                 }
-            ).then(
-                (response) => {
-                    console.log("response",response);
-                    //return response.json();
-                }
-            );
+                ).then(
+                    (response) => {
+                        if(response.status == 200){
+                            return response.json();
+                        }
+                        else{
+                            return null;
+                        }
+                    }
+                ).then(responseOk => {
+                    if(responseOk){
+                        //this.storeData(responseOk.token);
+                        //this.props.navigation.navigate('Movies', {response: responseOk});
+                        alert("Usuario creado correctamente.");
+                        this.setState({newUserForm: false});              
+                    }
+                    else{
+                        alert("User registration failed.");
+                    }
+        
+                })
+                ;
     
-            this.props.navigation.navigate('Movies');
+            //this.props.navigation.navigate('Movies');
         }
         else{
             alert("Formato de email incorrecto.")
@@ -239,7 +256,7 @@ export default class Login extends Component {
                         </Button>
                     </View>
                     <View style={{margin:20}}>
-                        <Button mode="outlined" onPress={() => {this.updateNewUserForm(true)}} color="lightblue">Login</Button>
+                        <Button mode="outlined" onPress={() => {this.updateNewUserForm(true)}} color="lightblue">Register</Button>
                     </View>
                 </View>
             )

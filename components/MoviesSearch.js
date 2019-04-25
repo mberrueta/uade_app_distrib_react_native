@@ -108,13 +108,14 @@ class MoviesSearch extends Component {
     render(){
 
         const { search } = this.state.search;
+        const placeholder = `Search ${this.state.type}...`;
         return(
             <View >
 
                 <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
 
                     <SearchBar
-                        placeholder="Search Movie..."
+                        placeholder={placeholder}
                         onChangeText={this.updateSearch}
                         value={search}
                         platform="ios"
