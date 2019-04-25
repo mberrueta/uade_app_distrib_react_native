@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, Image, ScrollView } from 'react-native';
-import { SearchBar, Card, ListItem, Button, Icon, AirbnbRating, Rating } from 'react-native-elements'
-import Movie from '../screens/MovieDetailScreen';
-
-
-const url = "http://www.omdbapi.com/?&apikey=";
-const apikey = "5ad6e7ca";
+import { Text, View, ScrollView } from 'react-native';
+import { SearchBar, Card, Button, Icon} from 'react-native-elements'
+import Config from '../constants/Config';
 
 
 class MoviesSearch extends Component {
@@ -17,39 +13,28 @@ class MoviesSearch extends Component {
           name: "",
           movies: null,
           open: false,
+          type: 'movie',
           movieSelected:{
               imdbID: "",
               Title: ""
           }
         }
 
-        //console.log("Props",this.props.navegador);
-
-        // this.viewMovie = this.viewMovie.bind(this);
-        // this.handleClickOpen = this.handleClickOpen.bind(this);
-         this.ejecutarBusqueda = this.ejecutarBusqueda.bind(this);
-         //this.props.navigation = this.props.navigation.bind(this);
+         this.search = this.search.bind(this);
     }
-    
+
       updateSearch = search => {
-        //alert(search);
         this.setState({ name: search });
-        //alert(this.state.name);
       };
 
 
       viewMovie(movie){
-        //e.preventDefault();
-        //console.log("props",this.props);
         this.props.navegador.navigate('MovieDetails', {movie: movie, navegador: this.props.navegador});
-
     }
 
 
-      ejecutarBusqueda(){
-        //alert(this.state.name);
-        const endpoint = `${url}${apikey}&Type=movie&s=${this.state.name}`;
-        //console.log(endpoint)
+      search(){
+        const endpoint = `${Config.url}${Config.apikey}&Type=${this.state.type}&s=${this.state.name}`;
         fetch(endpoint).then(
             (response) => {
                 return response.json();
@@ -72,7 +57,7 @@ class MoviesSearch extends Component {
                             resizeMode="cover"
                             source={{ uri: movie.Poster }}
                         /> */}
-                        
+
                     </Text>
                     <Button
                         icon={<Icon name='description' color='#ffffff' />}
@@ -85,27 +70,15 @@ class MoviesSearch extends Component {
 
             })
             
-            //console.log(movieRows);
-
             this.setState({movies: movieRows});
-
-            //console.log("aca llega");
         })
         .catch(error => alert("Error: No se han encontrado resultados o se han encontrado demasiados resultados."));
-
-        //console.log("results", this.state.movies)
-        
-        
-
     }
     
     
     render(){
 
         const { search } = this.state.search;
-
-        //if(this.state.movies="")
-
         return(
             <View>
 
@@ -120,7 +93,7 @@ class MoviesSearch extends Component {
 
                 <Button
                 title="Buscar"
-                onPress={this.ejecutarBusqueda}
+                onPress={this.search}
                 />
 
                 </View>
