@@ -2,18 +2,12 @@ import React from 'react';
 import Navigation from '../components/Navigation';
 import MoviesSearch from '../components/MoviesSearch';
 import {
-  Image,
   Platform,
-  ScrollView,
   StyleSheet,
-  TouchableOpacity,
   View,
-  AsyncStorage,
+  AsyncStorage
 } from 'react-native';
-import { Text } from 'react-native-elements';
-import { WebBrowser } from 'expo';
 
-import { MonoText } from '../components/StyledText';
 
 export default class MoviesScreen extends React.Component {
   constructor(){

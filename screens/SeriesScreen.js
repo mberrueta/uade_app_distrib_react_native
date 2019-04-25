@@ -1,12 +1,8 @@
 import React from 'react'
 import {
-  Image,
   Platform,
-  ScrollView,
   StyleSheet,
-  TouchableOpacity,
-  View,
-  AsyncStorage
+  View
 } from 'react-native'
 import Navigation from '../components/Navigation'
 import SeriesSearch from '../components/SeriesSearch'

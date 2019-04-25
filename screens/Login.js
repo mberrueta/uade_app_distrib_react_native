@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import {
-    ScrollView,
     Text,
     View,
-    TouchableOpacity,
     AsyncStorage
 } from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
-import {Card} from 'react-native-elements';
 import Navigation from '../components/Navigation';
-import AwesomeButton from "react-native-really-awesome-button";
 
 export default class Login extends Component {
     
@@ -22,7 +18,6 @@ export default class Login extends Component {
             newPw:"",
             newName: "",
             newUserForm: false,
-            //response: {}
         }
 
     }
@@ -83,7 +78,6 @@ export default class Login extends Component {
                 if(responseOk){
                     storedData = JSON.stringify(responseOk);
                     this.storeData(storedData);
-                    //this.storeData(responseOk.token);
                     this.props.navigation.navigate('Movies', {response: responseOk});            
                 }
                 else{
@@ -107,7 +101,6 @@ export default class Login extends Component {
         try {
             await AsyncStorage.setItem('@user', user)
         } catch (e) {
-            // saving error
         }
     }
   
@@ -140,8 +133,6 @@ export default class Login extends Component {
                     }
                 ).then(responseOk => {
                     if(responseOk){
-                        //this.storeData(responseOk.token);
-                        //this.props.navigation.navigate('Movies', {response: responseOk});
                         alert("Usuario creado correctamente.");
                         this.setState({newUserForm: false});              
                     }
@@ -151,8 +142,6 @@ export default class Login extends Component {
         
                 })
                 ;
-    
-            //this.props.navigation.navigate('Movies');
         }
         else{
             alert("Formato de email incorrecto.")
@@ -173,14 +162,12 @@ export default class Login extends Component {
                         </Text>
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            //placeholder='Email' 
                             onChangeText = {this.updateNewUser}
                             label="Email"
                             value={this.state.newUser}
                         />
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            //placeholder='Nombre' 
                             onChangeText = {this.updateNewName}
                             label="Name"
                             value={this.state.newName}
@@ -195,7 +182,6 @@ export default class Login extends Component {
                         <View style={{margin:7}} />
                         <Button 
                             onPress={this.newUser.bind(this)}
-                            //title="Submit"
                             mode="contained"
                             color="lightblue"
                         >
@@ -220,14 +206,12 @@ export default class Login extends Component {
                         </Text>
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            //placeholder='Username' 
                             onChangeText = {this.updateUser}
                             value={this.state.user}
                             label="User"
                         />
                         <TextInput 
-                            style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            //placeholder='Password' 
+                            style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}}  
                             onChangeText = {this.updatePw}
                             label="Password"
                             secureTextEntry={true}

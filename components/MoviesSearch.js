@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
-import { SearchBar, Button, Icon, Divider} from 'react-native-elements';
-import { Avatar, Card, Title, Paragraph } from 'react-native-paper';
+import { View, ScrollView } from 'react-native';
+import { SearchBar} from 'react-native-elements';
 import CardMedia from 'react-native-card-media';
 import Config from '../constants/Config';
 import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import { Header } from 'react-native-elements'
 
 class Navigation extends Component {

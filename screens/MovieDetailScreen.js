@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Header, ScrollView, KeyboardAvoidingView, Alert, Picker, AsyncStorage} from 'react-native';
-import { Card, ListItem, Button, Rating } from 'react-native-elements';
+import { Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Alert, Picker, AsyncStorage} from 'react-native';
+import { Card, Button, Rating } from 'react-native-elements';
 import {Textarea} from 'native-base';
 import Comment from '../components/Comment';
 
