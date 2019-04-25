@@ -53,9 +53,6 @@ export default class Login extends Component {
     }
 
     login(){
-        console.log("user", this.state.user);
-        console.log("pw", this.state.pw);
-
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (reg.test(this.state.user) === true){
             
@@ -63,11 +60,8 @@ export default class Login extends Component {
                 email: this.state.user,
                 pass: this.state.pw
             }
-    
-            //console.log(JSON.stringify(data));
-    
+   
             const endpoint_auth = `https://uade-app-distrib-node-back.herokuapp.com/auth/signin`;
-            //console.log("endpoint:", endpoint);
             fetch(endpoint_auth,
                 {
                     method: 'POST',
@@ -91,7 +85,7 @@ export default class Login extends Component {
                     this.storeData(storedData);
                     console.log("STORED DATA",storedData);
                     this.props.navigation.navigate('Movies', {response: responseOk});
-                    console.log("responseOK",responseOk);              
+                    console.log("responseOK",responseOk);               
                 }
                 else{
                     alert("User or password are invalid.");
@@ -120,23 +114,14 @@ export default class Login extends Component {
   
 
     newUser(){
-        console.log("newUser", this.state.newUser);
-        console.log("newPw", this.state.newPw);
-        console.log("newName", this.state.newName);
-
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (reg.test(this.state.newUser) === true){
-            console.log("ENTRO")
             let data = {
                 email: this.state.newUser,
                 pass: this.state.newPw,
                 name: this.state.newName
-            }
-    
-            //console.log(JSON.stringify(data));
-    
+            }    
             const endpoint_new_user = `https://uade-app-distrib-node-back.herokuapp.com/users`;
-            //console.log("endpoint:", endpoint);
             fetch(endpoint_new_user,
                 {
                     method: 'POST',

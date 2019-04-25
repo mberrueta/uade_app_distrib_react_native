@@ -1,4 +1,4 @@
 export default {
-  url: "http://www.omdbapi.com/?&apikey=",
-  apikey: "5ad6e7ca"
-};
+  url: 'http://www.omdbapi.com/?&apikey=',
+  apikey: '5ad6e7ca'
+}

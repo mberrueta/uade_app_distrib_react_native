@@ -37,18 +37,13 @@ class Movie extends Component {
             userToken: ""
 
         }
-
-        //console.log("Movie",this.state.movie);
-
         const endpoint = `${url}${apikey}&Type=movie&i=${this.state.movie.imdbID}`;
-        //console.log("endpoint:", endpoint);
         fetch(endpoint).then(
             (response) => {
                 return response.json();
             }
         ).then(responseData => {
             this.setState({movie: responseData})
-            //console.log("Data:",responseData);
         });
 
 
@@ -63,7 +58,6 @@ class Movie extends Component {
     componentDidMount(){
 
         const endpoint_back_movies = `https://uade-app-distrib-node-back.herokuapp.com/movie-comments/${this.state.movie.imdbID}`;
-        //console.log("endpoint:", endpoint);
         fetch(endpoint_back_movies,
             {
                 method: 'GET',
@@ -77,9 +71,7 @@ class Movie extends Component {
                 return response.json();
             }
         ).then(responseDataBack => {
-            console.log("response",responseDataBack.comments);
             const results = responseDataBack.comments;
-            console.log("results",results);
             var movieComments = [];
 
             results.forEach( (movie) => {
@@ -95,23 +87,14 @@ class Movie extends Component {
 
             this.setState({comments: movieComments,commentText:""});
             this.getData();
-            //console.log("Comments:",responseDataBack);
-
-
         });
-
-
-        console.log("comments state", this.state.comments)
-
     }
       
     
       getData = async () => {
     
           const value = await AsyncStorage.getItem('@user');
-          console.log("DETAIL getData value before",value);
           if(value !== null) {      
-            console.log("DETAIL getData value after",value);
             this.setState({userToken: value})
           }
       }
@@ -138,10 +121,7 @@ class Movie extends Component {
             stars: this.state.ranking
         }
 
-        console.log("newcomment", data);
-
         const endpoint_back_movies_post = "https://uade-app-distrib-node-back.herokuapp.com/movie-comments/";
-        //console.log("endpoint:", endpoint);
         fetch(endpoint_back_movies_post,
             {
                 method: 'POST',
@@ -156,8 +136,6 @@ class Movie extends Component {
                 return response.json();
             }
         ).then(responseDataBack => {
-            console.log("response POST",responseDataBack);
-            //console.log("Comments:",responseDataBack);
             const alertMsg = Alert.alert(
                 'Thanks!',
                 'Your comment has been saved succefuly.',
@@ -181,7 +159,6 @@ class Movie extends Component {
         let image_uri = this.state.movie.Poster;
         let rating = this.state.movie.imdbRating / 2;
         const { commentText } = this.state.commentText;
-        //console.log(image_uri);
         return(
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled key={this.state.uniqueValue}>
             <ScrollView>

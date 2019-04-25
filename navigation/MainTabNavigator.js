@@ -1,20 +1,19 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import React from 'react'
+import { Platform } from 'react-native'
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
 
-import TabBarIcon from '../components/TabBarIcon';
-import MoviesScreen from '../screens/MoviesScreen';
-import SeriesScreen from '../screens/SeriesScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-import Movie from '../screens/MovieDetailScreen';
-import Serie from '../screens/SerieDetailScreen';
-import Profile from '../screens/Profile';
-
+import TabBarIcon from '../components/TabBarIcon'
+import MoviesScreen from '../screens/MoviesScreen'
+import SeriesScreen from '../screens/SeriesScreen'
+import SettingsScreen from '../screens/SettingsScreen'
+import Movie from '../screens/MovieDetailScreen'
+import Serie from '../screens/SerieDetailScreen'
+import Profile from '../screens/Profile'
 
 const MoviesStack = createStackNavigator({
   Movies: MoviesScreen,
   MovieDetails: Movie
-});
+})
 
 MoviesStack.navigationOptions = {
   tabBarLabel: 'Movies',
@@ -27,13 +26,13 @@ MoviesStack.navigationOptions = {
           : 'ios-videocam'
       }
     />
-  ),
-};
+  )
+}
 
 const SeriesStack = createStackNavigator({
   Series: SeriesScreen,
   SeriesDetails: Serie
-});
+})
 
 SeriesStack.navigationOptions = {
   tabBarLabel: 'Series',
@@ -42,12 +41,12 @@ SeriesStack.navigationOptions = {
       focused={focused}
       name={Platform.OS === 'ios' ? 'md-film' : 'md-film'}
     />
-  ),
-};
+  )
+}
 
 const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-});
+  Settings: SettingsScreen
+})
 
 SettingsStack.navigationOptions = {
   tabBarLabel: 'Team',
@@ -56,13 +55,12 @@ SettingsStack.navigationOptions = {
       focused={focused}
       name={Platform.OS === 'ios' ? 'md-beer' : 'md-beer'}
     />
-  ),
-};
-
+  )
+}
 
 const ProfileStack = createStackNavigator({
-  Profile: Profile,
-});
+  Profile: Profile
+})
 
 ProfileStack.navigationOptions = {
   tabBarLabel: 'Profile',
@@ -71,12 +69,12 @@ ProfileStack.navigationOptions = {
       focused={focused}
       name={Platform.OS === 'ios' ? 'md-contact' : 'md-contact'}
     />
-  ),
-};
+  )
+}
 
 export default createBottomTabNavigator({
   MoviesStack,
   SeriesStack,
   SettingsStack,
   ProfileStack
-});
+})
