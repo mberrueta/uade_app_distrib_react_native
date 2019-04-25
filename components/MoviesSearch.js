@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, ScrollView } from 'react-native';
 import { SearchBar, Card, Button, Icon} from 'react-native-elements'
 import Config from '../constants/Config';
-
+import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
 
 class MoviesSearch extends Component {
 
@@ -82,19 +82,22 @@ class MoviesSearch extends Component {
         return(
             <View>
 
-                <View>
+                <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
 
-                <SearchBar
-                    placeholder="Buscar pelicula..."
-                    onChangeText={this.updateSearch}
-                    value={search}
-                    platform="ios"
-                />
+                    <SearchBar
+                        placeholder="Buscar pelicula..."
+                        onChangeText={this.updateSearch}
+                        value={search}
+                        platform="ios"
+                        containerStyle={{width:300, borderRadius:30, backgroundColor: 'white'}}
+                        inputStyle={{borderRadius:30}}
+                    />
 
-                <Button
-                title="Buscar"
-                onPress={this.search}
-                />
+                    {/* <Button
+                    title="Buscar"
+                    onPress={this.search}
+                    /> */}
+                    <AwesomeButtonRick type="primary" height={40} width={100} style={{marginTop: 14}} onPress={this.search}>Buscar</AwesomeButtonRick>
 
                 </View>
 

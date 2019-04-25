@@ -2,23 +2,22 @@ import React, { Component } from 'react';
 import {
     ScrollView,
     Text,
-    TextInput,
     View,
-    Button,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage
 } from 'react-native';
+import {TextInput, Button} from 'react-native-paper';
 import {Card} from 'react-native-elements';
 import Navigation from '../components/Navigation';
 import AwesomeButton from "react-native-really-awesome-button";
-import { AsyncStorage } from 'AsyncStorage';
 
 export default class Login extends Component {
     
     constructor(props){
         super(props);
         this.state = {
-            user: "",
-            pw: "",
+            user: "felipe@gmail.com",
+            pw: "12345678",
             newUser: "",
             newPw:"",
             newName: "",
@@ -85,18 +84,9 @@ export default class Login extends Component {
             }
         ).then(responseOk => {
             if(responseOk){
-                //alert("ok");
-                //this.setState({response: responseOk});
-
-                storeData = async () => {
-                    try {
-                      await AsyncStorage.setItem('@user_data', responseOk)
-                    } catch (e) {
-                      // saving error
-                    }
-                  }
-
+                this.storeData(responseOk.user_id);
                 this.props.navigation.navigate('Movies', {response: responseOk});
+                console.log("responseOK",responseOk);              
             }
             else{
                 alert("failed");
@@ -107,6 +97,15 @@ export default class Login extends Component {
 
         
     }
+
+    storeData = async (user) => {
+        try {
+            await AsyncStorage.setItem('@user', user)
+        } catch (e) {
+            // saving error
+        }
+    }
+  
 
     newUser(){
         console.log("newUser", this.state.newUser);
@@ -148,35 +147,41 @@ export default class Login extends Component {
             return (
                 <View>
                     <Navigation/>
-                    <Card>
+                    <View style={{margin:20}}>
                         <Text 
-                            style={{fontSize: 27}}>
-                            Nuevo Usuario
+                            style={{fontSize: 27, marginLeft: 125}}>
+                            New User
                         </Text>
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            placeholder='Email' 
+                            //placeholder='Email' 
                             onChangeText = {this.updateNewUser}
+                            label="Email"
                         />
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            placeholder='Nombre' 
+                            //placeholder='Nombre' 
                             onChangeText = {this.updateNewName}
+                            label="Nombre"
                         />
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
                             placeholder='Password' 
                             onChangeText = {this.updateNewPw}
+                            label="Contrasena"
                         />
                         <View style={{margin:7}} />
                         <Button 
                             onPress={this.newUser.bind(this)}
-                            title="Submit"
-                            style={{padding:50, height:50}}
-                        />
-                    </Card>
-                    <View style={{marginTop:50, marginLeft:120}} alignContent='center'>
-                        <AwesomeButton height={30} onPress={() => {this.updateNewUserForm(false)}}>Volver</AwesomeButton>
+                            //title="Submit"
+                            mode="contained"
+                            color="lightblue"
+                        >
+                            Registrar
+                        </Button>
+                    </View>
+                    <View style={{margin:20}} alignContent='center'>
+                        <Button mode="outlined" onPress={() => {this.updateNewUserForm(false)}} color="lightblue">Volver</Button>
                     </View>
                 </View>
             )
@@ -186,30 +191,34 @@ export default class Login extends Component {
             return (
                 <View>
                     <Navigation/>
-                    <Card>
+                    <View style={{margin:20}}>
                         <Text 
-                            style={{fontSize: 27}}>
+                            style={{fontSize: 27, marginLeft:150}}>
                             Login
                         </Text>
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            placeholder='Username' 
+                            //placeholder='Username' 
                             onChangeText = {this.updateUser}
+                            label="Usuario"
                         />
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            placeholder='Password' 
+                            //placeholder='Password' 
                             onChangeText = {this.updatePw}
+                            label="Contrasena"
                         />
                         <View style={{margin:7}} />
                         <Button 
                             onPress={this.login.bind(this)}
-                            title="Submit"
-                            style={{padding:50, height:50}}
-                        />
-                    </Card>
-                    <View style={{marginTop:50, marginLeft:120}} alignContent='center'>
-                        <AwesomeButton height={30} onPress={() => {this.updateNewUserForm(true)}}>Registrar nuevo usuario</AwesomeButton>
+                            mode="contained"
+                            color="lightblue"
+                        >
+                            Entrar
+                        </Button>
+                    </View>
+                    <View style={{margin:20}}>
+                        <Button mode="outlined" onPress={() => {this.updateNewUserForm(true)}} color="lightblue">Registrarse</Button>
                     </View>
                 </View>
             )

@@ -1,48 +1,54 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
 import MoviesSearch from '../components/MoviesSearch';
-import Login from './Login'
-
-
 import {
   Image,
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
+  AsyncStorage,
 } from 'react-native';
+import { Text } from 'react-native-elements';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
 export default class MoviesScreen extends React.Component {
+  constructor(){
+    super();
+    this.state={
+      user: null,
+    }
+  }
   static navigationOptions = {
     header: null,
   };
+  componentDidMount() {
+    this.getData();
+  }
+  
 
   getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@user_data')
-      if(value !== null) {
-        // value previously stored
-        console.log(value);
+
+      const value = await AsyncStorage.getItem('@user');
+      console.log("getData value before",value);
+      if(value !== null) {      
+        console.log("getData value after",value);
       }
-    } catch(e) {
-      // error reading value
-    }
   }
 
     
 
   render() {
-    console.log(getData);
+
+    console.log("berrueta cat",this.state.user && this.state.user);
     return (
         <View style={styles.container}>
           <Navigation/>
-          <Text>Peliculas</Text>
-          <MoviesSearch navegador={this.props.navigation}/> 
+          <Text h4>Peliculas</Text>
+          <MoviesSearch navegador={this.props.navigation} user={this.state.user}/> 
         </View>
     );
   }
