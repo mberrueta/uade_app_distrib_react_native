@@ -100,7 +100,7 @@ export default class Login extends Component {
 
         }
         else{
-            alert("Formato de email incorrecto.");
+            alert("Incorrect email format.");
         }
 
         
@@ -172,13 +172,13 @@ export default class Login extends Component {
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
                             //placeholder='Nombre' 
                             onChangeText = {this.updateNewName}
-                            label="Nombre"
+                            label="Name"
                         />
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
                             placeholder='Password' 
                             onChangeText = {this.updateNewPw}
-                            label="Contrasena"
+                            label="Password"
                         />
                         <View style={{margin:7}} />
                         <Button 
@@ -187,11 +187,11 @@ export default class Login extends Component {
                             mode="contained"
                             color="lightblue"
                         >
-                            Registrar
+                            Submit
                         </Button>
                     </View>
                     <View style={{margin:20}} alignContent='center'>
-                        <Button mode="outlined" onPress={() => {this.updateNewUserForm(false)}} color="lightblue">Volver</Button>
+                        <Button mode="outlined" onPress={() => {this.updateNewUserForm(false)}} color="lightblue">Back</Button>
                     </View>
                 </View>
             )
@@ -211,7 +211,7 @@ export default class Login extends Component {
                             //placeholder='Username' 
                             onChangeText = {this.updateUser}
                             value={this.state.user}
-                            label="Usuario"
+                            label="User"
                         />
                         <TextInput 
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
@@ -226,11 +226,11 @@ export default class Login extends Component {
                             mode="contained"
                             color="lightblue"
                         >
-                            Entrar
+                            Enter
                         </Button>
                     </View>
                     <View style={{margin:20}}>
-                        <Button mode="outlined" onPress={() => {this.updateNewUserForm(true)}} color="lightblue">Registrarse</Button>
+                        <Button mode="outlined" onPress={() => {this.updateNewUserForm(true)}} color="lightblue">Login</Button>
                     </View>
                 </View>
             )

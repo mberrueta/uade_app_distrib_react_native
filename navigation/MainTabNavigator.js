@@ -49,7 +49,7 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Nosotros',
+  tabBarLabel: 'Team',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
