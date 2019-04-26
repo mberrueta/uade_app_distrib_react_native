@@ -120,7 +120,7 @@ export default class Profile extends Component {
             </View>
         </View>
         <Text style={{fontWeight:"bold", fontSize:16}}>Comentarios:</Text>
-        {this.state.movies}
+        <View>{this.state.movies}</View>
       </ScrollView>
     );
   }
@@ -179,17 +179,5 @@ const styles = StyleSheet.create({
     color: "#696969",
     marginTop:10,
     textAlign: 'center'
-  },
-  buttonContainer: {
-    // marginTop:10,
-    // height:45,
-    // flexDirection: 'row',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // marginBottom:20,
-    // width:250,
-    // borderRadius:30,
-    // backgroundColor: "#00BFFF",
-    // flex:1,
-  },
+  }
 });

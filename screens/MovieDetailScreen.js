@@ -19,7 +19,7 @@ class MovieDetailScreen extends Component {
             type: 'movie',
             browser: props.navigation.getParam('browser'),
             alertMsg:"",
-            puntuacion: 5,
+            ranking: 5,
             user: null,
             loading: false,
             ratingOptions: [
