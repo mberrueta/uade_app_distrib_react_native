@@ -35,7 +35,7 @@ class MoviesSearch extends Component {
 
 
       search(){
-        const endpoint = `${Config.url}${Config.apikey}&Type=${this.state.type}&s=${this.state.name}`;
+        const endpoint = `${Config.url}${Config.apikey}&Type=${this.state.type}&s=${this.state.name.trim()}`;
         fetch(endpoint).then(
             (response) => {
                 return response.json();

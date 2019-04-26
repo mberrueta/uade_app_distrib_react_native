@@ -20,6 +20,7 @@ export default class Profile extends Component {
             userName: "",
             userEmail: "",
             userToken: "",
+            user: {},
             movies: null
         }
 
@@ -43,7 +44,8 @@ export default class Profile extends Component {
               userId: valueJson.id, 
               userName: valueJson.name,
               userEmail: valueJson.email,
-              userToken: valueJson.token
+              userToken: valueJson.token,
+              user: valueJson
             }, cb)
         }
     }
@@ -106,15 +108,20 @@ export default class Profile extends Component {
 
   render() {
     
+    let no_img = require ("../assets/images/face.png");
+    let data = this.state.user.full_contact_data;
+    let title = data ? `(${data.full_name} ${this.state.user.gender || '' } ${data.age || '' })` : this.state.user.name
+    let subtitle = data ? `${ data.location || '' }` : ''
     return (
       <ScrollView style={styles.container}>
           <View style={styles.header}></View>
-          <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+          <Image style={styles.avatar} source={ (data && data.photo)  && { uri: data.photo } || no_img }/>
           <View style={styles.body}>
             <View style={styles.bodyContent}>
-              <Text style={styles.name}>{this.state.userName}</Text>
-              <Text style={styles.email}>{this.state.userEmail}</Text>
-              <Text style={styles.info}>UX Designer / Mobile developer</Text>
+              <Text style={styles.name}>{this.state.user.name}</Text>
+              <Text style={styles.email}>{this.state.user.email}</Text>
+              <Text style={styles.info}>{ title }</Text>
+              <Text style={styles.info}>{ subtitle }</Text>
               <Text style={styles.description}>
                 
               </Text>
