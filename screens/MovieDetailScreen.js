@@ -21,9 +21,11 @@ class Movie extends Component {
             navegador: props.navigation.getParam('navegador'),
             alertMsg:"",
             puntuacion: 5,
-            userToken: ""
+            user: null
 
         }
+        this.fetchData = this.fetchData.bind(this)
+        
         const endpoint = `${url}${apikey}&Type=movie&i=${this.state.movie.imdbID}`;
         fetch(endpoint).then(
             (response) => {
@@ -33,17 +35,16 @@ class Movie extends Component {
             this.setState({movie: responseData})
         });
 
-
-        
         this.saveComment = this.saveComment.bind(this);
         this.updateCommentText = this.updateCommentText.bind(this);
-
-
     }
 
 
     componentDidMount(){
-
+        this.getData(this.fetchData);
+    }
+      
+    fetchData(){
         const endpoint_back_movies = `https://uade-app-distrib-node-back.herokuapp.com/movie-comments/${this.state.movie.imdbID}`;
         fetch(endpoint_back_movies,
             {
@@ -66,22 +67,17 @@ class Movie extends Component {
                 <Comment movie={movie}/>
                     
                 movieComments.push(movieComment);
-
-                
-
             })
 
-
             this.setState({comments: movieComments,commentText:""});
-            this.getData();
         });
     }
-      
-    
-      getData = async () => {
+
+
+      getData = async (cb) => {
           const user = await AsyncStorage.getItem('@user');
           if(user !== null) {      
-            this.setState({user: JSON.parse(user) })
+            this.setState({user: JSON.parse(user) }, cb)
           }
       }
 
