@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Alert, Picker, AsyncStorage} from 'react-native';
+import { Text, View, StyleSheet, ScrollView, KeyboardAvoidingView, Alert, AsyncStorage} from 'react-native';
 import { Card, Button, Rating } from 'react-native-elements';
 import {Textarea} from 'native-base';
 import Comment from '../components/Comment';
+import RadioGroup from 'react-native-radio-buttons-group';
 
 
 // TODO: use global config
@@ -21,7 +22,14 @@ class MovieDetailScreen extends Component {
             browser: props.navigation.getParam('browser'),
             alertMsg:"",
             puntuacion: 5,
-            user: null
+            user: null,
+            ratingOptions: [
+                { label: '1' },
+                { label: '2' },
+                { label: '3' },
+                { label: '4' },
+                { label: '5' }
+            ]
 
         }
         this.fetchData = this.fetchData.bind(this)
@@ -74,19 +82,19 @@ class MovieDetailScreen extends Component {
     }
 
 
-      getData = async (cb) => {
-          const user = await AsyncStorage.getItem('@user');
-          if(user !== null) {      
-            this.setState({user: JSON.parse(user) }, cb)
-          }
-      }
+    getData = async (cb) => {
+        const user = await AsyncStorage.getItem('@user');
+        if(user !== null) {      
+        this.setState({user: JSON.parse(user) }, cb)
+        }
+    }
 
     updatecommentToSave = commentToSave => {
         this.setState({ commentToSave: commentToSave });
     };
 
     updateRanking = ranking => {
-        this.setState({ ranking: ranking });
+        this.setState({ ranking: ranking.value });
     };
 
     saveComment(){
@@ -96,9 +104,6 @@ class MovieDetailScreen extends Component {
             comment: this.state.commentToSave,
             stars: this.state.ranking
         }
-
-        console.log("user ", this.state.user)
-        console.log("token ", this.state.user.token)
 
         const endpoint_back_movies_post = "https://uade-app-distrib-node-back.herokuapp.com/movie-comments/";
         fetch(endpoint_back_movies_post,
@@ -112,7 +117,6 @@ class MovieDetailScreen extends Component {
             }
         ).then(
             (response) => {
-                console.log(response)
                 if(response.status == 200){
                     return response.json();
                 }
@@ -148,6 +152,9 @@ class MovieDetailScreen extends Component {
     render(){
         let image_uri = this.state.movie.Poster;
         let rating = this.state.movie.imdbRating / 2;
+        let selectedButton = this.state.ratingOptions.find(e => e.selected == true);
+        selectedButton = selectedButton ? selectedButton.value : this.state.ratingOptions[0].label;
+
         return(
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled key={this.state.uniqueValue}>
             <ScrollView key={`${this.state.movie.imdbID}_view`}>
@@ -198,16 +205,11 @@ class MovieDetailScreen extends Component {
                             <Text>
                                 Ranking:
                             </Text>
-                            <Picker
-                                selectedValue={this.state.ranking}
-                                style={{height: 50, width: 100}}
-                                onValueChange={this.updateRanking}>
-                                <Picker.Item label="5" value="5" />
-                                <Picker.Item label="4" value="4" />
-                                <Picker.Item label="3" value="3" />
-                                <Picker.Item label="2" value="2" />
-                                <Picker.Item label="1" value="1" />
-                            </Picker>
+
+                            <RadioGroup
+                                radioButtons={this.state.ratingOptions}
+                                onPress={this.updateRanking}
+                                flexDirection='row' />
                         </View>
                         <Button
                             backgroundColor='#03A9F4'
@@ -240,7 +242,6 @@ const styles = StyleSheet.create({
     titleView: {
         height: 80,
         backgroundColor: 'blue',
-        paddingStart: 5,
     },
     titleText: {
       fontSize: 20,
@@ -250,8 +251,6 @@ const styles = StyleSheet.create({
     subTitleView: {
         height: 30,
         backgroundColor: 'blue',
-        paddingStart: 10,
-        paddingBottom: 5,
     },
     subTitleText: {
         fontSize: 12,
@@ -259,7 +258,6 @@ const styles = StyleSheet.create({
     },
     imgView: {
         height: 250,
-        padding: 10,
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',

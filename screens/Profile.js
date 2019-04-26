@@ -41,7 +41,7 @@ export default class Profile extends Component {
         const storageValueJson = JSON.parse(storageValue);
         if(storageValue !== null) {
           this.setState({
-              userId: storageValueJson.id, 
+              userId: storageValueJson.id,
               userName: storageValueJson.name,
               userEmail: storageValueJson.email,
               userToken: storageValueJson.token,
@@ -51,10 +51,7 @@ export default class Profile extends Component {
     }
 
     fetchData(){
-        //console.log("TOKEN",this.state.userToken)
-
         const endpoint_back_movies = `https://uade-app-distrib-node-back.herokuapp.com/movie-comments`;
-        //console.log("endpoint:", endpoint_back_movies);
         fetch(endpoint_back_movies,
             {
                 method: 'GET',
@@ -68,20 +65,12 @@ export default class Profile extends Component {
                 return response.json();
             }
         ).then(responseDataBack => {
-            // console.log("response",responseDataBack);
             const results = responseDataBack.comments;
-            // console.log("results",results);
             var movies = [];
 
             let movies_titles = Object.keys(results);
 
-            //console.log("ASDASDSADASDA",movies_titles);
-            
-            //movies_titles.forEach( (movie_title) => {                        
-                                        
-                console.log("asdasdasdasdas",results["undefined"]);
                 movies_titles.forEach(movie_title => {
-                    //console.log("MOVIE comm",comment);
                     let movie_comments = results[movie_title]
                     const movieComment =(
                     <View>
@@ -96,7 +85,6 @@ export default class Profile extends Component {
 
                     movies.push(movieComment);
                 })                 
-            //})
 
 
             this.setState({movies: movies});
