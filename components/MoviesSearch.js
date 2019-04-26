@@ -47,7 +47,7 @@ class MoviesSearch extends Component {
                 file = [movie.Poster];
                 title = `${movie.Title} (${movie.Year})`;
                 const movieRow =
-                <View style={{margin:5, marginBottom: 10}}>
+                <View style={{margin:5, marginBottom: 10}} key={movie.imdbID} >
                     <CardMedia
                         files={file}
                         style={{ height: 200}}
@@ -66,7 +66,10 @@ class MoviesSearch extends Component {
             
             this.setState({movies: movieRows});
         })
-        .catch(error => alert("Error: No results found or too many."));
+        .catch(error => {
+            alert("Error: No results found or too many.")
+            console.log(error) // DO NOT DELETE CATCH logs
+        });
     }
     
     

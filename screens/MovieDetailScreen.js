@@ -65,8 +65,8 @@ class MovieDetailScreen extends Component {
 
             results.forEach( (movie) => {
                 const movieComment =
-                <Comment movie={movie}/>
-                    
+                    <Comment movie={movie} key={movie.id}/>
+
                 movieComments.push(movieComment);
             })
 
@@ -147,21 +147,17 @@ class MovieDetailScreen extends Component {
     }
 
     render(){
-        //let image_uri = this.state.movie.Poster != 'N/A' ? {uri: this.state.movie.Poster} : require('.././assets/images/no_image.jpg');
         let image_uri = this.state.movie.Poster;
         let rating = this.state.movie.imdbRating / 2;
         return(
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled key={this.state.uniqueValue}>
-            <ScrollView>
+            <ScrollView key={`${this.state.movie.imdbID}_view`}>
                 { <View style={styles.titleView}>
                     <Text style={styles.titleText}>
                         {this.state.movie.Title} ({this.state.movie.Year})
                     </Text>
 
                 </View> }
-                {/* <Header
-                    centerComponent={{ text: {this.state.movie.Title}, style: { color: '#fff' } }}
-                /> */}
                 <View style={styles.subTitleView}>
                     <Text style={styles.subTitleText}>
                         {this.state.movie.Genre} | {this.state.movie.Language} | {this.state.movie.Released} ({this.state.movie.Country})
@@ -181,7 +177,7 @@ class MovieDetailScreen extends Component {
                         Actors: {this.state.movie.Actors} {'\n'} {'\n'}
                     </Text>
 
-                    <Rating showRating fractions="{1}" startingValue={rating} readonly/>
+                    <Rating showRating fractions={1} startingValue={rating} readonly/>
 
                 </Card>
 
@@ -194,7 +190,7 @@ class MovieDetailScreen extends Component {
 
                     <View>
                         <Textarea rowSpan={5} bordered
-                            placeholder="Add Comments..." 
+                            placeholder="Add Comments..."
                             onChangeText={this.updateCommentText}
                             value={this.state.commentText}
                             style={{marginBottom:10}}    
