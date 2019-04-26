@@ -50,7 +50,7 @@ class Movie extends Component {
                 method: 'GET',
                 headers:{
                     'Content-Type': 'application/json',
-                    'authorization': `Bearer ${this.state.userToken}`
+                    'authorization': `Bearer ${this.state.user.token}`
                 }
             }
         ).then(
