@@ -49,7 +49,6 @@ export default class Profile extends Component {
     }
 
     fetchData(){
-
         //console.log("TOKEN",this.state.userToken)
 
         const endpoint_back_movies = `https://uade-app-distrib-node-back.herokuapp.com/movie-comments`;
