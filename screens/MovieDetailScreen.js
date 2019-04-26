@@ -4,11 +4,8 @@ import { Card, Button, Rating } from 'react-native-elements';
 import {Textarea} from 'native-base';
 import Comment from '../components/Comment';
 import RadioGroup from 'react-native-radio-buttons-group';
+import Config from '../constants/Config';
 
-
-// TODO: use global config
-const url = 'http://www.omdbapi.com/?&apikey=';
-const apikey = '5ad6e7ca';
 
 class MovieDetailScreen extends Component {
 
@@ -34,7 +31,7 @@ class MovieDetailScreen extends Component {
         }
         this.fetchData = this.fetchData.bind(this)
 
-        const endpoint = `${url}${apikey}&Type=${this.state.type}&i=${this.state.movie.imdbID}`;
+        const endpoint = `${Config.url}${Config.apikey}&Type=${this.state.type}&i=${this.state.movie.imdbID}`;
         fetch(endpoint).then(
             (response) => {
                 return response.json();
@@ -53,7 +50,7 @@ class MovieDetailScreen extends Component {
     }
       
     fetchData(){
-        const endpoint_back_movies = `https://uade-app-distrib-node-back.herokuapp.com/movie-comments/${this.state.movie.imdbID}`;
+        const endpoint_back_movies = `${Config.api_url}/movie-comments/${this.state.movie.imdbID}`;
         fetch(endpoint_back_movies,
             {
                 method: 'GET',
@@ -105,7 +102,7 @@ class MovieDetailScreen extends Component {
             stars: this.state.ranking
         }
 
-        const endpoint_back_movies_post = "https://uade-app-distrib-node-back.herokuapp.com/movie-comments/";
+        const endpoint_back_movies_post = "${Config.api_url}/movie-comments/";
         fetch(endpoint_back_movies_post,
             {
                 method: 'POST',

@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import Navigation from '../components/Navigation';
+import Config from '../constants/Config';
 
 export default class Login extends Component {
     
@@ -55,8 +56,8 @@ export default class Login extends Component {
                 email: this.state.user,
                 pass: this.state.pw
             }
-   
-            const endpoint_auth = `https://uade-app-distrib-node-back.herokuapp.com/auth/signin`;
+
+            const endpoint_auth = `${Config.api_url}/auth/signin`;
             fetch(endpoint_auth,
                 {
                     method: 'POST',
@@ -112,8 +113,9 @@ export default class Login extends Component {
                 email: this.state.newUser,
                 pass: this.state.newPw,
                 name: this.state.newName
-            }    
-            const endpoint_new_user = `https://uade-app-distrib-node-back.herokuapp.com/users`;
+            }
+
+            const endpoint_new_user = `${Config.api_url}/users`;
             fetch(endpoint_new_user,
                 {
                     method: 'POST',
