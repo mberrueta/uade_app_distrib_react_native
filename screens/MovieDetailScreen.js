@@ -16,10 +16,9 @@ class MovieDetailScreen extends Component {
         this.state = {
             movie: props.navigation.getParam('movie'),
             comments: null,
-            commentText: "",
             commentToSave:"",
             type: 'movie',
-            navegador: props.navigation.getParam('navegador'),
+            browser: props.navigation.getParam('browser'),
             alertMsg:"",
             puntuacion: 5,
             user: null
@@ -37,7 +36,7 @@ class MovieDetailScreen extends Component {
         });
 
         this.saveComment = this.saveComment.bind(this);
-        this.updateCommentText = this.updateCommentText.bind(this);
+        this.updatecommentToSave = this.updatecommentToSave.bind(this);
     }
 
 
@@ -70,7 +69,7 @@ class MovieDetailScreen extends Component {
                 movieComments.push(movieComment);
             })
 
-            this.setState({comments: movieComments,commentText:""});
+            this.setState({comments: movieComments,commentToSave:""});
         });
     }
 
@@ -82,8 +81,8 @@ class MovieDetailScreen extends Component {
           }
       }
 
-    updateCommentText = commentText => {
-        this.setState({ commentToSave: commentText });
+    updatecommentToSave = commentToSave => {
+        this.setState({ commentToSave: commentToSave });
     };
 
     updateRanking = ranking => {
@@ -139,7 +138,7 @@ class MovieDetailScreen extends Component {
               );
             this.setState({
                 alertMsg: alertMsg,
-                commentText: ""
+                commentToSave: ""
             });
             
         });
@@ -191,8 +190,8 @@ class MovieDetailScreen extends Component {
                     <View>
                         <Textarea rowSpan={5} bordered
                             placeholder="Add Comments..."
-                            onChangeText={this.updateCommentText}
-                            value={this.state.commentText}
+                            onChangeText={this.updatecommentToSave}
+                            value={this.state.commentToSave}
                             style={{marginBottom:10}}    
                         />
                         <View style={{width:300}}>
