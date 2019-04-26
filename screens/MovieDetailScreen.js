@@ -9,24 +9,11 @@ import Comment from '../components/Comment';
 const url = 'http://www.omdbapi.com/?&apikey=';
 const apikey = '5ad6e7ca';
 
-const list = [
-    {
-      name: 'Joni Tekel',
-      subtitle: 'Esta pelicula es una reverenda mierda. No la miren'
-    },
-    {
-      name: 'Chris Jackson',
-      subtitle: 'Vice Chairman'
-    }
-  ]
-
-
 class Movie extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            // imdbID: props.imdbID || 'tt3165576'
             movie: props.navigation.getParam('movie'),
             comments: null,
             commentText: "",
@@ -92,34 +79,30 @@ class Movie extends Component {
       
     
       getData = async () => {
-    
-          const value = await AsyncStorage.getItem('@user');
-          if(value !== null) {      
-            this.setState({userToken: value})
+          const user = await AsyncStorage.getItem('@user');
+          if(user !== null) {      
+            this.setState({user: JSON.parse(user) })
           }
       }
 
     updateCommentText = commentText => {
-        //alert(search);
         this.setState({ commentToSave: commentText });
-        //alert(this.state.name);
     };
 
     updateRanking = ranking => {
-        //alert(search);
         this.setState({ ranking: ranking });
-        //alert(this.state.name);
     };
 
     saveComment(){
-        //alert(this.state.commentToSave);
-
         let data = {
             imdb_id: this.state.movie.imdbID,
             imdb_title: this.state.movie.Title,
             comment: this.state.commentToSave,
             stars: this.state.ranking
         }
+
+        console.log("user ", this.state.user)
+        console.log("token ", this.state.user.token)
 
         const endpoint_back_movies_post = "https://uade-app-distrib-node-back.herokuapp.com/movie-comments/";
         fetch(endpoint_back_movies_post,
@@ -128,11 +111,12 @@ class Movie extends Component {
                 body: JSON.stringify(data),
                 headers:{
                     'Content-Type': 'application/json',
-                    'authorization': `Bearer ${this.state.userToken}`
+                    'authorization': `Bearer ${this.state.user.token}`
                 }
             }
         ).then(
             (response) => {
+                console.log(response)
                 if(response.status == 200){
                     return response.json();
                 }
