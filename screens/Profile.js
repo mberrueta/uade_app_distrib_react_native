@@ -37,15 +37,15 @@ export default class Profile extends Component {
 
     getData = async (cb) => {
     
-        const value = await AsyncStorage.getItem('@user');
-        const valueJson = JSON.parse(value);
-        if(value !== null) {
+        const storageValue = await AsyncStorage.getItem('@user');
+        const storageValueJson = JSON.parse(storageValue);
+        if(storageValue !== null) {
           this.setState({
-              userId: valueJson.id, 
-              userName: valueJson.name,
-              userEmail: valueJson.email,
-              userToken: valueJson.token,
-              user: valueJson
+              userId: storageValueJson.id, 
+              userName: storageValueJson.name,
+              userEmail: storageValueJson.email,
+              userToken: storageValueJson.token,
+              user: storageValueJson
             }, cb)
         }
     }

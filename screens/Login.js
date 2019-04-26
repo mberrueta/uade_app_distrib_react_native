@@ -78,7 +78,7 @@ export default class Login extends Component {
                 if(responseOk){
                     storedData = JSON.stringify(responseOk);
                     this.storeData(storedData);
-                    this.props.navigation.navigate('Movies', {response: responseOk});                      
+                    this.props.navigation.navigate('Movies', {response: responseOk});
                 }
                 else{
                     alert("User or password are invalid.");
@@ -134,7 +134,7 @@ export default class Login extends Component {
                 ).then(responseOk => {
                     if(responseOk){
                         alert("Usuario creado correctamente.");
-                        this.setState({newUserForm: false});              
+                        this.setState({newUserForm: false});
                     }
                     else{
                         alert("User registration failed.");
@@ -151,31 +151,30 @@ export default class Login extends Component {
     render() {
 
         if(this.state.newUserForm){
-            
             return (
                 <View>
                     <Navigation/>
                     <View style={{margin:20}}>
-                        <Text 
+                        <Text
                             style={{fontSize: 27, marginLeft: 125}}>
                             New User
                         </Text>
-                        <TextInput 
+                        <TextInput
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            onChangeText = {this.updateNewUser}
+                            onChangeText={this.updateNewUser}
                             label="Email"
                             value={this.state.newUser}
                         />
-                        <TextInput 
+                        <TextInput
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            onChangeText = {this.updateNewName}
+                            onChangeText={this.updateNewName}
                             label="Name"
                             value={this.state.newName}
                         />
-                        <TextInput 
-                            style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
+                        <TextInput
+                            style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}}
                             placeholder='Password' 
-                            onChangeText = {this.updateNewPw}
+                            onChangeText={this.updateNewPw}
                             label="Password"
                             secureTextEntry={true}
                         />
@@ -204,15 +203,15 @@ export default class Login extends Component {
                             style={{fontSize: 27, marginLeft:150}}>
                             Login
                         </Text>
-                        <TextInput 
+                        <TextInput
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}} 
-                            onChangeText = {this.updateUser}
+                            onChangeText={this.updateUser}
                             value={this.state.user}
                             label="User"
                         />
-                        <TextInput 
+                        <TextInput
                             style={{fontSize: 18, marginTop:15, height: 50, borderColor: "grey", borderBottomWidth: 1}}  
-                            onChangeText = {this.updatePw}
+                            onChangeText={this.updatePw}
                             label="Password"
                             secureTextEntry={true}
                         />

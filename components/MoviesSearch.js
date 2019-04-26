@@ -11,7 +11,6 @@ class MoviesSearch extends Component {
         super(props);
         this.state = {
           search: "",
-          name: "",
           movies: null,
           open: false,
           type: 'movie',
@@ -25,7 +24,7 @@ class MoviesSearch extends Component {
     }
 
       updateSearch = search => {
-        this.setState({ name: search });
+        this.setState({ search: search });
       };
 
 
@@ -35,7 +34,7 @@ class MoviesSearch extends Component {
 
 
       search(){
-        const endpoint = `${Config.url}${Config.apikey}&Type=${this.state.type}&s=${this.state.name.trim()}`;
+        const endpoint = `${Config.url}${Config.apikey}&Type=${this.state.type}&s=${this.state.search.trim()}`;
         fetch(endpoint).then(
             (response) => {
                 return response.json();
@@ -73,7 +72,6 @@ class MoviesSearch extends Component {
     
     render(){
 
-        const { search } = this.state.search;
         const placeholder = `Search ${this.state.type}...`;
         return(
             <View >
@@ -83,7 +81,7 @@ class MoviesSearch extends Component {
                     <SearchBar
                         placeholder={placeholder}
                         onChangeText={this.updateSearch}
-                        value={search}
+                        value={this.state.search}
                         platform="ios"
                         containerStyle={{width:300, borderRadius:30, backgroundColor: '#fff'}}
                         inputStyle={{borderRadius:30}}

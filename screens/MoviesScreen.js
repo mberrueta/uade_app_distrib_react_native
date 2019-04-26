@@ -26,9 +26,9 @@ export default class MoviesScreen extends React.Component {
 
   getData = async () => {
 
-      const value = await AsyncStorage.getItem('@user');
-      if(value !== null) {      
-        this.setState({user: value});
+      const storageValue = await AsyncStorage.getItem('@user');
+      if(storageValue !== null) {
+        this.setState({user: storageValue});
       }
   }
 
@@ -38,8 +38,7 @@ export default class MoviesScreen extends React.Component {
     return (
         <View style={styles.container}>
           <Navigation/>
-          {/*<Text h4>Peliculas</Text> */}
-          <MoviesSearch browser={this.props.navigation} user={this.state.user}/> 
+          <MoviesSearch browser={this.props.navigation} user={this.state.user}/>
         </View>
     );
   }

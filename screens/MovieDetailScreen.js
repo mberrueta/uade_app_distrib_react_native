@@ -150,7 +150,6 @@ class MovieDetailScreen extends Component {
         //let image_uri = this.state.movie.Poster != 'N/A' ? {uri: this.state.movie.Poster} : require('.././assets/images/no_image.jpg');
         let image_uri = this.state.movie.Poster;
         let rating = this.state.movie.imdbRating / 2;
-        const { commentText } = this.state.commentText;
         return(
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled key={this.state.uniqueValue}>
             <ScrollView>
@@ -194,10 +193,10 @@ class MovieDetailScreen extends Component {
                     </View>
 
                     <View>
-                        <Textarea rowSpan={5} bordered 
+                        <Textarea rowSpan={5} bordered
                             placeholder="Add Comments..." 
                             onChangeText={this.updateCommentText}
-                            value={commentText}
+                            value={this.state.commentText}
                             style={{marginBottom:10}}    
                         />
                         <View style={{width:300}}>
