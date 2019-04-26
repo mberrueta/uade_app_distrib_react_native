@@ -1,7 +1,7 @@
-import React from 'react'
-import Carousel from 'react-native-banner-carousel'
-import { StyleSheet, Image, View, Dimensions } from 'react-native'
-import Navigation from '../components/Navigation'
+import React from 'react';
+import Carousel from 'react-native-banner-carousel';
+import { StyleSheet, Image, View, ScrollView, Dimensions } from 'react-native';
+import Navigation from '../components/Navigation';
 
 const { width, height } = Dimensions.get('window')
 
@@ -27,7 +27,7 @@ export default class App extends React.Component {
   render () {
     return (
 
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Navigation/>
         <Carousel
           autoplay
@@ -38,7 +38,7 @@ export default class App extends React.Component {
         >
           {images.map((image, index) => this.renderPage(image, index))}
         </Carousel>
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -46,7 +46,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center'
+    backgroundColor: '#fff'
+    //justifyContent: 'center'
   }
 })

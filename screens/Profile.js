@@ -7,10 +7,11 @@ import {
   TouchableOpacity,
   AsyncStorage
 } from 'react-native';
-import Comment from '../components/Comment';
 import { ListItem, Rating } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler';
 import Config from '../constants/Config';
+import Loader from '../components/Loader';
+
 
 export default class Profile extends Component {
 
@@ -22,7 +23,8 @@ export default class Profile extends Component {
             userEmail: "",
             userToken: "",
             user: {},
-            movies: null
+            movies: null,
+            loading: false
         }
 
         this.fetchData = this.fetchData.bind(this)
@@ -52,6 +54,7 @@ export default class Profile extends Component {
     }
 
     fetchData(){
+        this.setState({loading: true});
         const endpoint_back_movies = `${Config.api_url}/movie-comments`;
         fetch(endpoint_back_movies,
             {
@@ -74,8 +77,13 @@ export default class Profile extends Component {
                 movies_titles.forEach(movie_title => {
                     let movie_comments = results[movie_title]
                     const movieComment =(
-                    <View key={movie_title}>
-                        <Text style={{fontWeight:"bold", fontSize:16}}>{movie_title}</Text>
+                    <View key={movie_title} style={{margin:10}}>
+                        <Text 
+                            style={{fontWeight:"bold", fontSize:18, color: "#00BFFF", textDecorationLine: 'underline'}}
+                            //onPress={this.navigateToMovie}
+                        >
+                            {movie_title}
+                        </Text>
                         {movie_comments.map(item => <ListItem
                             key={item.id}
                             title={item.comment}
@@ -88,7 +96,7 @@ export default class Profile extends Component {
                 })                 
 
 
-            this.setState({movies: movies});
+            this.setState({movies: movies, loading:false});
 
 
 
@@ -103,6 +111,7 @@ export default class Profile extends Component {
     let subtitle = data ? `${ data.location || '' }` : ''
     return (
       <ScrollView style={styles.container}>
+            <Loader loading={this.state.loading} />
           <View style={styles.header}></View>
           <Image style={styles.avatar} source={ (data && data.photo)  && { uri: data.photo } || no_img }/>
           <View style={styles.body}>
@@ -119,7 +128,7 @@ export default class Profile extends Component {
               
             </View>
         </View>
-        <Text style={{fontWeight:"bold", fontSize:16}}>Comentarios:</Text>
+        <Text style={{fontWeight:"bold", fontSize:16, marginLeft:5, marginBottom:10}}>Comments:</Text>
         <View>{this.state.movies}</View>
       </ScrollView>
     );

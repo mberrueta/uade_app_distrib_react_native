@@ -19,13 +19,13 @@ class MovieDetailScreen extends Component {
             type: 'movie',
             browser: props.navigation.getParam('browser'),
             alertMsg:"",
-            ranking: 5,
+            ranking: 3,
             user: null,
             loading: false,
             ratingOptions: [
                 { label: '1' },
                 { label: '2' },
-                { label: '3' },
+                { label: '3', selected: true },
                 { label: '4' },
                 { label: '5' }
             ]
@@ -94,7 +94,7 @@ class MovieDetailScreen extends Component {
     };
 
     updateRanking = ranking => {
-        this.setState({ ranking: ranking.value });
+        this.setState({ ranking: ranking.find(e => e.selected == true).value });
     };
 
     saveComment(){
@@ -153,8 +153,6 @@ class MovieDetailScreen extends Component {
     render(){
         let image_uri = this.state.movie.Poster;
         let rating = this.state.movie.imdbRating / 2;
-        let selectedButton = this.state.ratingOptions.find(e => e.selected == true);
-        selectedButton = selectedButton ? selectedButton.value : this.state.ratingOptions[0].label;
 
         return(
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled key={this.state.uniqueValue}>
