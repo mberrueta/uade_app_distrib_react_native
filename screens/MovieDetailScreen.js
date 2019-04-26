@@ -9,7 +9,7 @@ import Comment from '../components/Comment';
 const url = 'http://www.omdbapi.com/?&apikey=';
 const apikey = '5ad6e7ca';
 
-class Movie extends Component {
+class MovieDetailScreen extends Component {
 
     constructor(props){
         super(props);
@@ -18,6 +18,7 @@ class Movie extends Component {
             comments: null,
             commentText: "",
             commentToSave:"",
+            type: 'movie',
             navegador: props.navigation.getParam('navegador'),
             alertMsg:"",
             puntuacion: 5,
@@ -25,8 +26,8 @@ class Movie extends Component {
 
         }
         this.fetchData = this.fetchData.bind(this)
-        
-        const endpoint = `${url}${apikey}&Type=movie&i=${this.state.movie.imdbID}`;
+
+        const endpoint = `${url}${apikey}&Type=${this.state.type}&i=${this.state.movie.imdbID}`;
         fetch(endpoint).then(
             (response) => {
                 return response.json();
@@ -155,9 +156,7 @@ class Movie extends Component {
             <ScrollView>
                 { <View style={styles.titleView}>
                     <Text style={styles.titleText}>
-                    {'\n'}{'\n'}
-                        {this.state.movie.Title} ({this.state.movie.Year})  
-                         {'\n'}{'\n'}
+                        {this.state.movie.Title} ({this.state.movie.Year})
                     </Text>
 
                 </View> }
@@ -182,7 +181,7 @@ class Movie extends Component {
                         Director: {this.state.movie.Director} {'\n'}
                         Actors: {this.state.movie.Actors} {'\n'} {'\n'}
                     </Text>
-                    
+
                     <Rating showRating fractions="{1}" startingValue={rating} readonly/>
 
                 </Card>
@@ -277,4 +276,4 @@ const styles = StyleSheet.create({
     }
   });
 
-  export default Movie;
+  export default MovieDetailScreen;

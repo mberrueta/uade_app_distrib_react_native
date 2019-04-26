@@ -6,13 +6,13 @@ import TabBarIcon from '../components/TabBarIcon'
 import MoviesScreen from '../screens/MoviesScreen'
 import SeriesScreen from '../screens/SeriesScreen'
 import SettingsScreen from '../screens/SettingsScreen'
-import Movie from '../screens/MovieDetailScreen'
-import Serie from '../screens/SerieDetailScreen'
+import MovieDetailScreen from '../screens/MovieDetailScreen'
+import SeriesDetailScreen from '../screens/SeriesDetailScreen'
 import Profile from '../screens/Profile'
 
 const MoviesStack = createStackNavigator({
   Movies: MoviesScreen,
-  MovieDetails: Movie
+  MovieDetails: MovieDetailScreen
 })
 
 MoviesStack.navigationOptions = {
@@ -31,7 +31,7 @@ MoviesStack.navigationOptions = {
 
 const SeriesStack = createStackNavigator({
   Series: SeriesScreen,
-  SeriesDetails: Serie
+  SeriesDetails: SeriesDetailScreen
 })
 
 SeriesStack.navigationOptions = {
