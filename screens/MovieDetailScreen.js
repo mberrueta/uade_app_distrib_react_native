@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     },
     titleView: {
         height: 80,
-        backgroundColor: 'blue',
+        backgroundColor: '#0099ff',
     },
     titleText: {
       fontSize: 20,
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     },
     subTitleView: {
         height: 30,
-        backgroundColor: 'blue',
+        backgroundColor: '#0099ff',
     },
     subTitleText: {
         fontSize: 12,

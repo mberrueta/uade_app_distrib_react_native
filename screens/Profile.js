@@ -13,6 +13,9 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Config from '../constants/Config';
 import Loader from '../components/Loader';
 import {TextInput} from 'react-native-paper';
+// import Moment from 'react-moment';
+// import 'moment-timezone';
+import moment from 'moment';
 
 
 export default class Profile extends Component {
@@ -40,6 +43,7 @@ export default class Profile extends Component {
     componentDidMount(){
         this.getData(this.fetchData);
     }
+ 
 
 
     getData = async (cb) => {
@@ -91,7 +95,7 @@ export default class Profile extends Component {
                         {movie_comments.map(item => <ListItem
                             key={item.id}
                             title={item.comment}
-                            subtitle={item.date}
+                            subtitle={moment(item.date).fromNow()}
                             rightAvatar = {<Rating startingValue={item.stars} imageSize={12} readonly/>}
                         /> )   }
                     </View>)
