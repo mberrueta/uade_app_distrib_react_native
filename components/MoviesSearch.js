@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Platform } from 'react-native';
 import { SearchBar} from 'react-native-elements';
 import CardMedia from 'react-native-card-media';
 import Config from '../constants/Config';
 import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
+import Loader from '../components/Loader';
 
 class MoviesSearch extends Component {
 
@@ -14,6 +15,7 @@ class MoviesSearch extends Component {
           movies: null,
           open: false,
           type: 'movie',
+          loading: false,
           movieSelected:{
               imdbID: "",
               Title: ""
@@ -34,6 +36,7 @@ class MoviesSearch extends Component {
 
 
       search(){
+        this.setState({loading:true});
         const endpoint = `${Config.url}${Config.apikey}&Type=${this.state.type}&s=${this.state.search.trim()}`;
         fetch(endpoint).then(
             (response) => {
@@ -66,7 +69,7 @@ class MoviesSearch extends Component {
                 })
             }
 
-            this.setState({movies: movieRows});
+            this.setState({movies: movieRows, loading:false});
         })
         .catch(error => {
             alert("Error: No results found or too many.")
@@ -80,18 +83,18 @@ class MoviesSearch extends Component {
         const placeholder = `Search ${this.state.type}...`;
         return(
             <View >
-
-                <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+                <Loader loading={this.state.loading} />
+                <View style={{flexDirection:'row', justifyContent:'flex-end', marginBottom:5}}>
 
                     <SearchBar
                         placeholder={placeholder}
                         onChangeText={this.updateSearch}
                         value={this.state.search}
-                        platform="ios"
-                        containerStyle={{width:300, borderRadius:30, backgroundColor: '#fff'}}
+                        platform={Platform.OS}
+                        containerStyle={{width:300, height:45,borderRadius:30, backgroundColor: '#e6e6e6', marginTop:5}}
                         inputStyle={{borderRadius:30}}
                     />
-                    <AwesomeButtonRick type="primary" height={40} width={100} style={{marginTop: 14, marginRight:5}} onPress={this.search}>Search</AwesomeButtonRick>
+                    <AwesomeButtonRick type="primary" height={45} width={100} style={{marginTop: 5, marginRight:5}} onPress={this.search}>Search</AwesomeButtonRick>
                 </View>
 
                 <ScrollView style={{marginBottom:20}}>

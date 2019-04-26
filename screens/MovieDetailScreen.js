@@ -5,6 +5,7 @@ import {Textarea} from 'native-base';
 import Comment from '../components/Comment';
 import RadioGroup from 'react-native-radio-buttons-group';
 import Config from '../constants/Config';
+import Loader from '../components/Loader';
 
 
 class MovieDetailScreen extends Component {
@@ -20,6 +21,7 @@ class MovieDetailScreen extends Component {
             alertMsg:"",
             puntuacion: 5,
             user: null,
+            loading: false,
             ratingOptions: [
                 { label: '1' },
                 { label: '2' },
@@ -50,6 +52,7 @@ class MovieDetailScreen extends Component {
     }
       
     fetchData(){
+        this.setState({loading: true});
         const endpoint_back_movies = `${Config.api_url}/movie-comments/${this.state.movie.imdbID}`;
         fetch(endpoint_back_movies,
             {
@@ -74,7 +77,7 @@ class MovieDetailScreen extends Component {
                 movieComments.push(movieComment);
             })
 
-            this.setState({comments: movieComments,commentToSave:""});
+            this.setState({comments: movieComments,commentToSave:"", loading: false});
         });
     }
 
@@ -102,7 +105,8 @@ class MovieDetailScreen extends Component {
             stars: this.state.ranking
         }
 
-        const endpoint_back_movies_post = "${Config.api_url}/movie-comments/";
+        const endpoint_back_movies_post = `${Config.api_url}/movie-comments/`;
+        console.log("endpoint",endpoint_back_movies_post);
         fetch(endpoint_back_movies_post,
             {
                 method: 'POST',
@@ -154,6 +158,7 @@ class MovieDetailScreen extends Component {
 
         return(
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled key={this.state.uniqueValue}>
+            <Loader loading={this.state.loading} />
             <ScrollView key={`${this.state.movie.imdbID}_view`}>
                 { <View style={styles.titleView}>
                     <Text style={styles.titleText}>

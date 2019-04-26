@@ -10,6 +10,7 @@ import {
 import Comment from '../components/Comment';
 import { ListItem, Rating } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler';
+import Config from '../constants/Config';
 
 export default class Profile extends Component {
 
@@ -73,7 +74,7 @@ export default class Profile extends Component {
                 movies_titles.forEach(movie_title => {
                     let movie_comments = results[movie_title]
                     const movieComment =(
-                    <View>
+                    <View key={movie_title}>
                         <Text style={{fontWeight:"bold", fontSize:16}}>{movie_title}</Text>
                         {movie_comments.map(item => <ListItem
                             key={item.id}
