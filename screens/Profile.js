@@ -6,13 +6,15 @@ import {
   Image,
   TouchableOpacity,
   AsyncStorage,
-  Button
+  Button,
+  ScrollView,
+  RefreshControl,
+  ToolbarAndroid
 } from 'react-native';
 import { ListItem, Rating } from 'react-native-elements'
-import { ScrollView } from 'react-native-gesture-handler';
 import Config from '../constants/Config';
 import Loader from '../components/Loader';
-import {TextInput} from 'react-native-paper';
+import { Avatar } from 'react-native-paper';
 // import Moment from 'react-moment';
 // import 'moment-timezone';
 import moment from 'moment';
@@ -36,14 +38,39 @@ export default class Profile extends Component {
 
         this.fetchData = this.fetchData.bind(this)
       
-
+       // console.log(this.props.navigation);
     }
 
+    // static navigationOptions = {
+    //   header: null,
+    // };
+
+    static navigationOptions = ({ navigation }) => {
+      const movie = navigation.getParam('movie');
+      return {
+        title: `My Profile`,
+        headerStyle: {
+          backgroundColor: '#0099ff',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        //headerRight: (<Avatar.Icon size={50} icon="more-vert" style={{backgroundColor: "#0099ff"}}/>)
+        //headerRight: (<PopupMenu actions={['Edit', 'Remove']} onPress={this.onPopupEvent} />)
+      };
+    };
 
     componentDidMount(){
         this.getData(this.fetchData);
     }
- 
+    
+    _onRefresh = () => {
+      this.setState({refreshing: true});
+      this.getData(this.fetchData).then(() => {
+        this.setState({refreshing: false});
+      });
+    }
 
 
     getData = async (cb) => {
@@ -88,7 +115,7 @@ export default class Profile extends Component {
                     <View key={movie_title} style={{margin:10}}>
                         <Text 
                             style={{fontWeight:"bold", fontSize:18, color: "#00BFFF", textDecorationLine: 'underline'}}
-                            //onPress={this.navigateToMovie}
+                            
                         >
                             {movie_title}
                         </Text>
@@ -111,46 +138,14 @@ export default class Profile extends Component {
        });
     } 
 
-    updateNewPw = pw => {
-        this.setState({ newPw: pw });
-    };
 
-    changePw(){
 
-            
-            let data = {
-                pass: this.state.newPw
-            }
+    goTochangePw(){
+      this.props.navigation.navigate('ChangePassword', {user: this.state.user});
+    }
 
-            const endpoint = `${Config.api_url}/users/`;
-            fetch(endpoint,
-                {
-                    method: 'PUT',
-                    body: JSON.stringify(data),
-                    headers:{
-                        'Content-Type': 'application/json',
-                        'authorization': `Bearer ${this.state.user.token}` 
-                    }
-                }
-            ).then(
-                (response) => {
-                    if(response.status == 200){
-                        return response.json();
-                    }
-                    else{
-                        return null;
-                    }
-                }
-            ).then(responseOk => {
-                if(responseOk){
-                    this.props.navigation.navigate('Login');
-                }
-                else{
-                    alert("FAILED.");
-                }
-    
-            })
-            ; 
+    logout(){
+      this.props.navigation.navigate('Login');
     }
 
 
@@ -161,7 +156,16 @@ export default class Profile extends Component {
     let title = data ? `(${data.full_name} ${this.state.user.gender || '' } ${data.age || '' })` : this.state.user.name
     let subtitle = data ? `${ data.location || '' }` : ''
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView 
+          style={styles.container}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+        }
+        >
+
             <Loader loading={this.state.loading} />
           <View style={styles.header}></View>
           <Image style={styles.avatar} source={ (data && data.photo)  && { uri: data.photo } || no_img }/>
@@ -171,30 +175,32 @@ export default class Profile extends Component {
               <Text style={styles.email}>{this.state.user.email}</Text>
               <Text style={styles.info}>{ title }</Text>
               <Text style={styles.info}>{ subtitle }</Text>
-              <Text style={styles.description}>
-                
-              </Text>
+              
               
               
               
             </View>
         </View>
-        <View style={{marginLeft:50, marginRight:50}}>
-        <TextInput
-                style={{fontSize: 18, marginTop:5, marginBottom:5, height: 50, borderColor: "grey", borderBottomWidth: 1}}
-                placeholder='New Password' 
-                onChangeText={this.updateNewPw}
-                label="New Password"
-                secureTextEntry={true}
-            />
-        <Button
-            backgroundColor='#03A9F4'
-            buttonStyle={{borderRadius: 0, marginLeft: 10, marginRight: 10, marginBottom: 10}}
-            onPress={this.changePw.bind(this)}
-            title='Change password'/>
-            </View>
-        <Text style={{fontWeight:"bold", fontSize:16, marginLeft:5, marginBottom:10, marginTop:10}}>Comments:</Text>
+        
+        <Text style={{fontWeight:"bold", fontSize:16, marginLeft:5, marginBottom:10}}>My Comments:</Text>
         <View>{this.state.movies}</View>
+
+        <View style={{marginBottom:20}}>
+                <Button
+                  backgroundColor='#03A9F4'
+                  buttonStyle={{marginBottom: 10}}
+                  onPress={this.goTochangePw.bind(this)}
+                  title='Change password'
+                />
+              </View>
+             <View style={{marginBottom:20}}>
+              <Button
+                  backgroundColor='#03A9F4'
+                  buttonStyle={{ marginBottom: 10}}
+                  onPress={this.logout.bind(this)}
+                  title='Logout'
+                />
+             </View>
       </ScrollView>
     );
   }
@@ -205,8 +211,8 @@ const styles = StyleSheet.create({
         flex: 1
     },
   header:{
-    backgroundColor: "#00BFFF",
-    height:200,
+    backgroundColor: "#0099ff",
+    height:150,
   },
   avatar: {
     width: 130,
@@ -217,7 +223,7 @@ const styles = StyleSheet.create({
     marginBottom:10,
     alignSelf:'center',
     position: 'absolute',
-    marginTop:130
+    marginTop:80
   },
   name:{
     fontSize:22,
@@ -225,7 +231,7 @@ const styles = StyleSheet.create({
     fontWeight:'600',
   },
   body:{
-    marginTop:40,
+    marginTop:20,
   },
   bodyContent: {
     flex: 1,

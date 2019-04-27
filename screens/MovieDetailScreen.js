@@ -44,8 +44,23 @@ class MovieDetailScreen extends Component {
 
         this.saveComment = this.saveComment.bind(this);
         this.updatecommentToSave = this.updatecommentToSave.bind(this);
+
+        
     }
 
+    static navigationOptions = ({ navigation }) => {
+        const movie = navigation.getParam('movie');
+        return {
+          title: `${movie.Title} (${movie.Year})`,
+          headerStyle: {
+            backgroundColor: '#0099ff',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        };
+      };
 
     componentDidMount(){
         this.getData(this.fetchData);
@@ -158,12 +173,12 @@ class MovieDetailScreen extends Component {
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled key={this.state.uniqueValue}>
             <Loader loading={this.state.loading} />
             <ScrollView key={`${this.state.movie.imdbID}_view`}>
-                { <View style={styles.titleView}>
+                {/* { <View style={styles.titleView}>
                     <Text style={styles.titleText}>
                         {this.state.movie.Title} ({this.state.movie.Year})
                     </Text>
 
-                </View> }
+                </View> } */}
                 <View style={styles.subTitleView}>
                     <Text style={styles.subTitleText}>
                         {this.state.movie.Genre} | {this.state.movie.Language} | {this.state.movie.Released} ({this.state.movie.Country})

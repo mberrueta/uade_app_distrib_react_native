@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "APD",
-    "slug": "apd",
+    "name": "APD Movies 10",
+    "slug": "apd-movies-10",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -24,6 +24,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": ""
   }
 }

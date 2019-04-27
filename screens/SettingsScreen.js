@@ -16,10 +16,15 @@ const images = [
 ]
 
 export default class App extends React.Component {
+
+  static navigationOptions = {
+    header: null,
+  };
+
   renderPage (image, index) {
     return (
-      <View key={index}>
-        <Image style={{ width: width, height: height }} source={{ uri: image } } />
+      <View key={index} style={{flex: 1, alignContent:"center", alignItems: "center", alignSelf:"center"}}>
+        <Image style={{ width: width*0.99, height: height*0.8 , marginTop:5}} source={{ uri: image } } />
       </View>
     )
   }

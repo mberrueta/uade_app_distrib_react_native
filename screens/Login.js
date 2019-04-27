@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
     Text,
     View,
-    AsyncStorage
+    AsyncStorage,
+    Alert
 } from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import Navigation from '../components/Navigation';
@@ -18,10 +19,14 @@ export default class Login extends Component {
             newUser: "",
             newPw:"",
             newName: "",
-            newUserForm: false,
+            newUserForm: false
         }
 
     }
+
+    static navigationOptions = {
+        header: null,
+      };
 
     updateUser = user => {
         this.setState({ user: user });
@@ -49,6 +54,7 @@ export default class Login extends Component {
     }
 
     login(){
+        this.setState({loading: true});
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (reg.test(this.state.user) === true){
             
@@ -79,10 +85,11 @@ export default class Login extends Component {
                 if(responseOk){
                     storedData = JSON.stringify(responseOk);
                     this.storeData(storedData);
+                    this.setState({loading: false});
                     this.props.navigation.navigate('Movies', {response: responseOk});
                 }
                 else{
-                    alert("User or password are invalid.");
+                    Alert.alert("Error","User or password are invalid.");
                 }
     
             })
@@ -90,7 +97,7 @@ export default class Login extends Component {
 
         }
         else{
-            alert("Incorrect email format.");
+            Alert.alert("Error","Incorrect email format.");
         }
 
         
@@ -146,7 +153,7 @@ export default class Login extends Component {
                 ;
         }
         else{
-            alert("Formato de email incorrecto.")
+            Alert.alert("Error","Incorrect email format.")
         }
     }
 
@@ -199,7 +206,7 @@ export default class Login extends Component {
 
             return (
                 <View>
-                    <Navigation/>
+                    <Navigation/> 
                     <View style={{margin:20}}>
                         <Text 
                             style={{fontSize: 27, marginLeft:150}}>
