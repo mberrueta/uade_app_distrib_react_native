@@ -4,26 +4,21 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity,
   AsyncStorage,
   Button,
   ScrollView,
-  RefreshControl,
-  ToolbarAndroid
+  RefreshControl
 } from 'react-native';
 import { ListItem, Rating } from 'react-native-elements'
 import Config from '../constants/Config';
 import Loader from '../components/Loader';
-import { Avatar } from 'react-native-paper';
-// import Moment from 'react-moment';
-// import 'moment-timezone';
 import moment from 'moment';
 
 
 export default class Profile extends Component {
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             userId: "",
             userName: "",
@@ -33,20 +28,14 @@ export default class Profile extends Component {
             movies: null,
             loading: false,
             showChangePw: "",
-            newPw: ""
+            newPw: "",
+            modalVisible: false
         }
 
         this.fetchData = this.fetchData.bind(this)
-      
-       // console.log(this.props.navigation);
     }
 
-    // static navigationOptions = {
-    //   header: null,
-    // };
-
     static navigationOptions = ({ navigation }) => {
-      const movie = navigation.getParam('movie');
       return {
         title: `My Profile`,
         headerStyle: {
@@ -55,9 +44,7 @@ export default class Profile extends Component {
         headerTintColor: '#fff',
         headerTitleStyle: {
           fontWeight: 'bold',
-        },
-        //headerRight: (<Avatar.Icon size={50} icon="more-vert" style={{backgroundColor: "#0099ff"}}/>)
-        //headerRight: (<PopupMenu actions={['Edit', 'Remove']} onPress={this.onPopupEvent} />)
+        }
       };
     };
 
@@ -65,7 +52,7 @@ export default class Profile extends Component {
         this.getData(this.fetchData);
     }
     
-    _onRefresh = () => {
+    _onRefresh = () => {//Get comments again when refreshing page.
       this.setState({refreshing: true});
       this.getData(this.fetchData).then(() => {
         this.setState({refreshing: false});
@@ -73,8 +60,7 @@ export default class Profile extends Component {
     }
 
 
-    getData = async (cb) => {
-    
+    getData = async (cb) => { //Get user token for security and call fetchData as callback.
         const storageValue = await AsyncStorage.getItem('@user');
         const storageValueJson = JSON.parse(storageValue);
         if(storageValue !== null) {
@@ -88,7 +74,7 @@ export default class Profile extends Component {
         }
     }
 
-    fetchData(){
+    fetchData(){ // Fetch comments done by user logged.
         this.setState({loading: true});
         const endpoint_back_movies = `${Config.api_url}/movie-comments`;
         fetch(endpoint_back_movies,
@@ -130,15 +116,9 @@ export default class Profile extends Component {
                     movies.push(movieComment);
                 })                 
 
- 
             this.setState({movies: movies, loading:false});
-
-
-
        });
     } 
-
-
 
     goTochangePw(){
       this.props.navigation.navigate('ChangePassword', {user: this.state.user});
@@ -165,42 +145,42 @@ export default class Profile extends Component {
             />
         }
         >
+        <View>
+          <Loader loading={this.state.loading} />
+        </View>
 
-            <Loader loading={this.state.loading} />
-          <View style={styles.header}></View>
-          <Image style={styles.avatar} source={ (data && data.photo)  && { uri: data.photo } || no_img }/>
-          <View style={styles.body}>
-            <View style={styles.bodyContent}>
-              <Text style={styles.name}>{this.state.user.name}</Text>
-              <Text style={styles.email}>{this.state.user.email}</Text>
-              <Text style={styles.info}>{ title }</Text>
-              <Text style={styles.info}>{ subtitle }</Text>
-              
-              
-              
-              
-            </View>
+        <View style={styles.header}></View>
+        <Image style={styles.avatar} source={ (data && data.photo)  && { uri: data.photo } || no_img }/>
+        <View style={styles.body}>
+          <View style={styles.bodyContent}>
+            <Text style={styles.name}>{this.state.user.name}</Text>
+            <Text style={styles.email}>{this.state.user.email}</Text>
+            <Text style={styles.info}>{ title }</Text>
+            <Text style={styles.info}>{ subtitle }</Text>
+          </View>
         </View>
         
         <Text style={{fontWeight:"bold", fontSize:16, marginLeft:5, marginBottom:10}}>My Comments:</Text>
-        <View>{this.state.movies}</View>
+        <View>{this.state.movies}</View> 
 
+        {/* Change pw and logout buttons */}
         <View style={{marginBottom:20}}>
-                <Button
-                  backgroundColor='#03A9F4'
-                  buttonStyle={{marginBottom: 10}}
-                  onPress={this.goTochangePw.bind(this)}
-                  title='Change password'
-                />
-              </View>
-             <View style={{marginBottom:20}}>
-              <Button
-                  backgroundColor='#03A9F4'
-                  buttonStyle={{ marginBottom: 10}}
-                  onPress={this.logout.bind(this)}
-                  title='Logout'
-                />
-             </View>
+          <Button
+            backgroundColor='#03A9F4'
+            buttonStyle={{marginBottom: 10}}
+            onPress={this.goTochangePw.bind(this)}
+            title='Change password'
+          />
+        </View>
+        <View style={{marginBottom:20}}>
+          <Button
+            backgroundColor='#03A9F4'
+            buttonStyle={{ marginBottom: 10}}
+            onPress={this.logout.bind(this)}
+            title='Logout'
+           />
+        </View>
+       
       </ScrollView>
     );
   }

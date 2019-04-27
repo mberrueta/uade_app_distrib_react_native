@@ -33,6 +33,7 @@ class MovieDetailScreen extends Component {
         }
         this.fetchData = this.fetchData.bind(this)
 
+        // Fetchs more movie details with id passed through param 
         const endpoint = `${Config.url}${Config.apikey}&Type=${this.state.type}&i=${this.state.movie.imdbID}`;
         fetch(endpoint).then(
             (response) => {
@@ -44,8 +45,6 @@ class MovieDetailScreen extends Component {
 
         this.saveComment = this.saveComment.bind(this);
         this.updatecommentToSave = this.updatecommentToSave.bind(this);
-
-        
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -66,7 +65,7 @@ class MovieDetailScreen extends Component {
         this.getData(this.fetchData);
     }
       
-    fetchData(){
+    fetchData(){ // Fetch movie comments. 
         this.setState({loading: true});
         const endpoint_back_movies = `${Config.api_url}/movie-comments/${this.state.movie.imdbID}`;
         fetch(endpoint_back_movies,
@@ -97,7 +96,7 @@ class MovieDetailScreen extends Component {
     }
 
 
-    getData = async (cb) => {
+    getData = async (cb) => { // Gets user security token. This allows to comment a movie.
         const user = await AsyncStorage.getItem('@user');
         if(user !== null) {      
         this.setState({user: JSON.parse(user) }, cb)
@@ -173,38 +172,24 @@ class MovieDetailScreen extends Component {
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled key={this.state.uniqueValue}>
             <Loader loading={this.state.loading} />
             <ScrollView key={`${this.state.movie.imdbID}_view`}>
-                {/* { <View style={styles.titleView}>
-                    <Text style={styles.titleText}>
-                        {this.state.movie.Title} ({this.state.movie.Year})
-                    </Text>
-
-                </View> } */}
                 <View style={styles.subTitleView}>
                     <Text style={styles.subTitleText}>
                         {this.state.movie.Genre} | {this.state.movie.Language} | {this.state.movie.Released} ({this.state.movie.Country})
                     </Text>
                 </View>
-
-
                 <Card 
                     key={this.state.movie.imdbID}
                     image = {{ uri: image_uri }}
                     imageStyle= {{width:300, height:444, marginLeft:40}}>
-
                     <Text>
                         {this.state.movie.Plot}{'\n'}{'\n'}
 
                         Director: {this.state.movie.Director} {'\n'}
                         Actors: {this.state.movie.Actors} {'\n'} {'\n'}
                     </Text>
-
                     <Rating showRating fractions={1} startingValue={rating} readonly/>
-
                 </Card>
-
-                <Card 
-                    title="Comments:">
-
+                <Card title="Comments:">
                     <View>
                         {this.state.comments}
                     </View>

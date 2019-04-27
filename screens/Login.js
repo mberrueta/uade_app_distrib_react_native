@@ -99,10 +99,6 @@ export default class Login extends Component {
         else{
             Alert.alert("Error","Incorrect email format.");
         }
-
-        
-
-        
     }
 
     storeData = async (user) => {
@@ -111,7 +107,6 @@ export default class Login extends Component {
         } catch (e) {
         }
     }
-  
 
     newUser(){
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -148,7 +143,6 @@ export default class Login extends Component {
                     else{
                         alert("User registration failed.");
                     }
-        
                 })
                 ;
         }
@@ -203,7 +197,6 @@ export default class Login extends Component {
             )
         }
         else{
-
             return (
                 <View>
                     <Navigation/> 
@@ -238,8 +231,6 @@ export default class Login extends Component {
                     </View>
                 </View>
             )
-
          }
-        
     }
 }

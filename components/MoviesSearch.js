@@ -22,22 +22,21 @@ class MoviesSearch extends Component {
           }
         }
 
-         this.search = this.search.bind(this);
+        this.search = this.search.bind(this);
     }
 
-      updateSearch = search => {
+    updateSearch = search => { // Updates state with textinput value.
         this.setState({ search: search });
-      };
+    };
 
-
-      viewMovie(movie){
+    viewMovie(movie){ // Go to movie details
         this.props.browser.navigate('MovieDetails', {movie: movie, browser: this.props.browser});
     }
 
-
-      search(){
+    search(){ // Search movies or series called by the button
         this.setState({loading:true});
         const endpoint = `${Config.url}${Config.apikey}&Type=${this.state.type}&s=${this.state.search.trim()}`;
+
         fetch(endpoint).then(
             (response) => {
                 return response.json();
@@ -45,7 +44,6 @@ class MoviesSearch extends Component {
         ).then(responseData => {
             const results = responseData.Search;
             var movieRows = [];
-
             if(results) {
                 results.forEach( (movie)=> {
                     file = [movie.Poster];
@@ -68,15 +66,13 @@ class MoviesSearch extends Component {
 
                 })
             }
-
             this.setState({movies: movieRows, loading:false});
         })
         .catch(error => {
             alert("Error: No results found or too many.")
-            console.log(error) // DO NOT DELETE CATCH logs
+            console.log(error);
         });
     }
-    
     
     render(){
 
@@ -85,7 +81,6 @@ class MoviesSearch extends Component {
             <View >
                 <Loader loading={this.state.loading} />
                 <View style={{flexDirection:'row', justifyContent:'flex-end', marginBottom:5}}>
-
                     <SearchBar
                         placeholder={placeholder}
                         onChangeText={this.updateSearch}
@@ -98,16 +93,12 @@ class MoviesSearch extends Component {
                 </View>
 
                 <ScrollView style={{marginBottom:20}}>
-
                     {this.state.movies}
-                    
                 </ScrollView>
             </View>
 
         )
-
     }
-
 }
 
 export default MoviesSearch;

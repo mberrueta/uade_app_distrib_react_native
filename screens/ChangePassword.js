@@ -54,7 +54,6 @@ class ChangePassword extends React.Component{
                 }
             ).then(responseOk => {
                 if(responseOk){
-                    //alert("", this.props.navigation.navigate('Login'))
                     Alert.alert(
                         'Password changed succesfully.',
                         'Please login again with your new password.');

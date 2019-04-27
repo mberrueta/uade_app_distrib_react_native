@@ -31,7 +31,6 @@ export default class App extends React.Component {
 
   render () {
     return (
-
       <ScrollView style={styles.container}>
         <Navigation/>
         <Carousel
